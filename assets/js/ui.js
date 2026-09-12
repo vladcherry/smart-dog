@@ -12,7 +12,10 @@ export function bind(root, map) {
     const el = e.target.closest('[data-act]');
     if (!el || !root.contains(el)) return;
     const fn = map[el.dataset.act];
-    if (fn) { e.preventDefault(); fn(el, e); }
+    if (!fn) return;
+    // preventDefault только для ссылок: на чекбоксах он отменяет саму установку галочки
+    if (el.tagName === 'A') e.preventDefault();
+    fn(el, e);
   });
   root.addEventListener('change', e => {
     const el = e.target.closest('[data-change]');

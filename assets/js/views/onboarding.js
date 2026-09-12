@@ -109,7 +109,7 @@ function body() {
       const avail = SKILLS.filter(s => s.minWeeks <= weeks + 4).slice(0, 12);
       return head('Что уже умеет?', 'Отметьте то, что стабильно работает дома. Остальное начнём с нуля.') + `
       <div class="stack">${avail.map(s => `<label class="check">
-        <input type="checkbox" data-act="known" data-v="${s.id}" ${draft.known.includes(s.id) ? 'checked' : ''}>
+        <input type="checkbox" data-change="known" data-v="${s.id}" ${draft.known.includes(s.id) ? 'checked' : ''}>
         <span>${s.name}</span></label>`).join('')}</div>
       <p class="cap" style="margin-top:16px">Ничего страшного, если список пустой — так начинают почти все.</p>
       ` + nav('Собрать план');
