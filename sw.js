@@ -1,11 +1,13 @@
-// Service worker: офлайн-режим для прогулки без сети
-const VERSION = 'smartdog-v8';
+// Service worker: офлайн-режим для прогулки без сети.
+// Версия приходит из адреса регистрации (./sw.js?v=1.0.0) — см. assets/js/version.js
+const VERSION = 'smartdog-' + (new URL(self.location.href).searchParams.get('v') || 'dev');
 const SHELL = [
   './', 'index.html', 'manifest.json',
   'assets/css/app.css',
   'assets/js/main.js', 'assets/js/state.js', 'assets/js/ui.js', 'assets/js/algo.js',
   'assets/js/training.js', 'assets/js/dayplan.js', 'assets/js/chart.js', 'assets/js/demo.js',
   'assets/js/install.js',
+  'assets/js/version.js',
   'assets/js/data/breeds.js', 'assets/js/data/skills.js', 'assets/js/data/weeks.js',
   'assets/js/data/articles.js',
   'assets/js/views/onboarding.js', 'assets/js/views/today.js', 'assets/js/views/walk.js',

@@ -10,6 +10,7 @@ import skillView from './views/skill.js';
 import skillsList from './views/skills.js';
 import walk from './views/walk.js';
 import * as install from './install.js';
+import { VERSION } from './version.js';
 
 const app = document.getElementById('app');
 let current = null;
@@ -77,7 +78,9 @@ if ('serviceWorker' in navigator && window.isSecureContext) {
     reloading = true;
     location.reload();
   });
-  window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(() => {}));
+  // Версия в адресе: меняется версия — браузер видит другой файл и ставит новый воркер
+  window.addEventListener('load', () =>
+    navigator.serviceWorker.register('./sw.js?v=' + VERSION).catch(() => {}));
 }
 
 // Демо-режим: #/today?demo=1 наполняет приложение примером профиля

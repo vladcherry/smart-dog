@@ -8,6 +8,7 @@ import { bind, esc, sheet, closeSheet, toast, icon } from '../ui.js';
 import { weightChart } from '../chart.js';
 import { weighSheet } from './today.js';
 import { openInstall, isStandalone } from '../install.js';
+import { VERSION, BUILD } from '../version.js';
 
 export default function profile() {
   const s = store.get(), dog = s.dog;
@@ -124,6 +125,22 @@ export default function profile() {
             </div></div>
         </div>
 
+        <div class="section-title"><h2>О приложении</h2></div>
+        <div class="card">
+          <div class="row-between"><span class="cap">Версия</span>
+            <b class="num">${VERSION}</b></div>
+          <div class="divider"></div>
+          <div class="row-between"><span class="cap">Сборка</span>
+            <b>${BUILD.split('-').reverse().join('.')}</b></div>
+          <div class="divider"></div>
+          <button class="list-row" data-act="update" style="width:100%;background:none;border:none;
+            font:inherit;color:inherit;cursor:pointer">
+            <span class="grow" style="text-align:left">Проверить обновление</span>${icon('chevron', 18)}</button>
+          <div class="cap">Приложение обновляется само при запуске с интернетом.
+            Кнопка нужна, если версия застряла: она сбрасывает офлайн-кэш и перезагружает.
+            Профиль, вес и прогресс при этом остаются.</div>
+        </div>
+
         <button class="btn btn-sec" style="margin-top:24px" data-act="reset">Начать заново</button>
         <p class="cap" style="margin-top:12px;text-align:center">Все данные хранятся только на этом устройстве.</p>
       </div>`,
@@ -138,6 +155,7 @@ export default function profile() {
         bcs: el => { store.update(s => { s.dog.bcs = el.dataset.v; }); toast('Питание пересчитано'); setTimeout(() => location.reload(), 400); },
         theme: el => { store.update(s => { s.settings.theme = el.dataset.v; }); location.reload(); },
         edit: () => editSheet(),
+        update: () => refresh(),
         reset: () => {
           sheet(`<h2>Начать заново?</h2>
             <p class="cap" style="margin:8px 0 16px">Профиль, история веса, прогресс навыков и прогулки будут удалены
@@ -151,6 +169,22 @@ export default function profile() {
       });
     }
   };
+}
+
+/** Принудительное обновление: снимаем воркер, чистим кэш, перезагружаем. Данные не трогаем. */
+async function refresh() {
+  toast('Обновляем…');
+  try {
+    if ('serviceWorker' in navigator) {
+      const regs = await navigator.serviceWorker.getRegistrations();
+      await Promise.all(regs.map(r => r.unregister()));
+    }
+    if (window.caches) {
+      const keys = await caches.keys();
+      await Promise.all(keys.map(k => caches.delete(k)));
+    }
+  } catch {}
+  setTimeout(() => location.reload(), 600);
 }
 
 function editSheet() {
