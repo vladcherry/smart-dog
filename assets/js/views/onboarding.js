@@ -8,6 +8,7 @@ import { bind, esc, sheet, closeSheet } from '../ui.js';
 
 const EMOJI = ['🐶','🐕','🦮','🐩','🐕‍🦺','🐺'];
 let step = 1;
+let nameFocused = false;
 let draft = { emoji:'🐶', sex:'m', neutered:'no', activity:'mid', foodType:'dry',
               wake:'07:00', sleep:'22:30', known:[] };
 const TOTAL = 8;
@@ -119,19 +120,22 @@ function body() {
 
 function mount(root) {
   const ob = root.querySelector('#ob');
+  // Любой выбор перерисовывает шаг, поэтому сначала забираем то, что уже введено руками,
+  // иначе набранная кличка или вес потерялись бы при нажатии на аватар или размер
+  const pick = fn => (el) => { collect(true); fn(el); rerender(root); };
   bind(ob, {
     next: () => { if (collect()) { step = Math.min(TOTAL, step + 1); rerender(root); } },
     back: () => { collect(true); step = Math.max(1, step - 1); rerender(root); },
-    emoji: el => { draft.emoji = el.dataset.v; rerender(root); },
-    group: el => { draft.group = el.dataset.v; rerender(root); },
-    sex:   el => { draft.sex = el.dataset.v; rerender(root); },
-    neu:   el => { draft.neutered = el.dataset.v; rerender(root); },
-    food:  el => { draft.foodType = el.dataset.v; rerender(root); },
-    act:   el => { draft.activity = el.dataset.v; rerender(root); },
-    approx: el => {
+    emoji: pick(el => { draft.emoji = el.dataset.v; }),
+    group: pick(el => { draft.group = el.dataset.v; }),
+    sex:   pick(el => { draft.sex = el.dataset.v; }),
+    neu:   pick(el => { draft.neutered = el.dataset.v; }),
+    food:  pick(el => { draft.foodType = el.dataset.v; }),
+    act:   pick(el => { draft.activity = el.dataset.v; }),
+    approx: pick(el => {
       const d = new Date(); d.setMonth(d.getMonth() - Number(el.dataset.v));
-      draft.birth = todayISO(d); rerender(root);
-    },
+      draft.birth = todayISO(d);
+    }),
     known: el => {
       const id = el.dataset.v;
       draft.known = el.checked ? [...new Set([...draft.known, id])] : draft.known.filter(x => x !== id);
@@ -141,6 +145,7 @@ function mount(root) {
   if (breed) {
     if (!draft.breed) { draft.breed = breed.value; const b = BREEDS.find(x => x.id === breed.value); if (b?.group) draft.group = b.group; }
     breed.addEventListener('change', () => {
+      collect(true);
       draft.breed = breed.value;
       const b = BREEDS.find(x => x.id === breed.value);
       if (b?.group) draft.group = b.group;
@@ -149,17 +154,19 @@ function mount(root) {
   }
   const birth = ob.querySelector('#f-birth');
   birth?.addEventListener('change', () => { draft.birth = birth.value; rerender(root); });
+  const nameInput = ob.querySelector('#f-name');
+  nameInput?.addEventListener('input', () => { draft.name = nameInput.value.trim(); });
   const weight = ob.querySelector('#f-weight');
   weight?.addEventListener('input', () => {
     draft.weight = weight.value;
     ob.querySelector('[data-act="next"]').disabled = !(Number(weight.value) > 0);
   });
-  ob.querySelector('#f-name')?.focus();
+  if (step === 1 && !nameFocused) { ob.querySelector('#f-name')?.focus(); nameFocused = true; }
 }
 
 function collect(silent) {
   const g = id => document.getElementById(id)?.value;
-  if (step === 1) { draft.name = (g('f-name') || '').trim() || 'Щенок'; }
+  if (step === 1) { const v = g('f-name'); if (v !== undefined) draft.name = v.trim(); }
   if (step === 2) { draft.birth = g('f-birth') || draft.birth; if (!draft.birth && !silent) return false; }
   if (step === 5) { draft.weight = g('f-weight') || draft.weight; if (!(Number(draft.weight) > 0) && !silent) return false; }
   if (step === 6) { draft.foodKcal = Number(g('f-kcal')) || null; }
@@ -175,7 +182,7 @@ function rerender(root) {
 
 function finish() {
   const dog = {
-    name: draft.name || 'Щенок', emoji: draft.emoji, birth: draft.birth, breed: draft.breed,
+    name: (draft.name || '').trim() || 'Щенок', emoji: draft.emoji, birth: draft.birth, breed: draft.breed,
     group: draft.group || 'M', sex: draft.sex, neutered: draft.neutered,
     foodType: draft.foodType, foodKcal: draft.foodKcal, activity: draft.activity,
     wake: draft.wake, sleep: draft.sleep, schedule: {}, createdAt: todayISO()
@@ -187,6 +194,7 @@ function finish() {
     s.weights = [{ date: todayISO(), kg: Number(draft.weight) }];
   });
   step = 1;
+  nameFocused = false;
   location.hash = '#/today';
   setTimeout(() => summary(dog, Number(draft.weight)), 60);
 }
@@ -210,7 +218,16 @@ function summary(dog, kg) {
         <b>${active.join(', ') || 'подберём на первой прогулке'}</b>
         <div class="cap">Новые команды открываются после пяти оценок «отлично» подряд</div></div>
     </div>
-    <p class="cap" style="margin:16px 0 0">Всё можно поправить в разделе «Расписание».</p>
-    <button class="btn" style="margin-top:16px" data-act="ok">Открыть день</button>
-  `, el => el.querySelector('[data-act="ok"]').addEventListener('click', closeSheet));
+    <p class="cap" style="margin:16px 0 0">Время выгулов, время и количество кормлений
+      меняются в разделе «Расписание» — он есть на экране «Сегодня» и в профиле.</p>
+    <div class="btn-row" style="margin-top:16px">
+      <button class="btn btn-sec" data-act="sched">Расписание</button>
+      <button class="btn" data-act="ok">Открыть день</button>
+    </div>
+  `, el => {
+    el.querySelector('[data-act="ok"]').addEventListener('click', closeSheet);
+    el.querySelector('[data-act="sched"]').addEventListener('click', () => {
+      closeSheet(); location.hash = '#/schedule';
+    });
+  });
 }

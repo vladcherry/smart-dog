@@ -46,8 +46,21 @@ export default function today() {
         ${esc(dog.name)} получил всё, что нужно. Завтра продолжим.</div></div>`}
 
       <div class="section-title"><h2>Сегодня</h2>
-        <span class="cap num">${prog.done} из ${prog.total}</span></div>
+        <div class="row" style="gap:4px">
+          <span class="cap num">${prog.done} из ${prog.total}</span>
+          <button class="btn-ghost" data-act="sched" style="min-height:32px">Расписание</button>
+        </div></div>
       <div class="timeline">${day.events.map((e, i) => evRow(e, log, i === day.events.length - 1, nowMin)).join('')}</div>
+
+      <button class="card row" data-act="sched" style="width:100%;text-align:left;cursor:pointer;
+        font:inherit;color:inherit;border:1px solid var(--divider);margin-top:4px">
+        <div class="ev-icon" style="--ev:var(--health)">⏰</div>
+        <div class="grow">
+          <div style="font-weight:600">Изменить расписание</div>
+          <div class="cap">Время выгулов и кормлений, сколько раз в день кормить, длительность прогулки</div>
+        </div>
+        <span style="color:var(--text-3)">${icon('chevron', 18)}</span>
+      </button>
 
       <div class="section-title"><h2>Навыки в работе</h2>
         <span class="cap">${activeSkills(s.skills).length} из ${MAX_POOL}</span></div>
@@ -76,6 +89,7 @@ export default function today() {
         article: el => { location.hash = '#/book/' + el.dataset.id; },
         book: () => { location.hash = '#/book'; },
         weigh: () => weighSheet(),
+        sched: () => { location.hash = '#/schedule'; },
         allrecs: () => { location.hash = '#/schedule'; }
       });
     }

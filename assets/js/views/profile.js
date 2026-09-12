@@ -1,7 +1,7 @@
 import * as store from '../state.js';
 import { SKILLS, STAGES } from '../data/skills.js';
 import { ageLabel, ageWeeks, ageMonths, predictAdultWeight, expectedWeight, growthStatus,
-         feedingPlan, todayISO, round1, plural } from '../algo.js';
+         feedingPlan, todayISO, round1, plural, effectiveSchedule } from '../algo.js';
 import { progressSummary, stageInfo, nextUnlockHint, skillById, MAX_POOL } from '../training.js';
 import { BREEDS, GROUPS } from '../data/breeds.js';
 import { bind, esc, sheet, closeSheet, toast, icon } from '../ui.js';
@@ -22,6 +22,7 @@ export default function profile() {
   const streak = store.streakDays(todayISO());
   const walks = s.walks.length;
   const hint = nextUnlockHint(s.skills, weeks);
+  const eff = effectiveSchedule(dog);
 
   return {
     html: `<div class="screen-head"><div class="over">Профиль</div><h1>${esc(dog.name)}</h1>
@@ -34,6 +35,18 @@ export default function profile() {
           <div><b class="num">${streak}</b><span>${plural(streak, 'день','дня','дней')} подряд</span></div>
           <div><b class="num">${sum.MASTERED + sum.MAINTENANCE}</b><span>навыков освоено</span></div>
         </div>
+
+        <button class="card row" data-act="sched" style="width:100%;text-align:left;cursor:pointer;
+          font:inherit;color:inherit;border:1px solid var(--divider);margin-top:24px">
+          <div class="ev-icon" style="--ev:var(--health)">⏰</div>
+          <div class="grow">
+            <div style="font-weight:600">Расписание дня</div>
+            <div class="cap">Выгул ${eff.walkAm} и ${eff.walkPm} по ${eff.walkMin} мин ·
+              ${eff.meals.length} ${plural(eff.meals.length, 'кормление', 'кормления', 'кормлений')}:
+              ${eff.meals.join(', ')}</div>
+          </div>
+          <span style="color:var(--text-3)">${icon('chevron', 18)}</span>
+        </button>
 
         <div class="section-title"><h2>Вес и рост</h2>
           <button class="btn-ghost" data-act="weigh">Взвесить</button></div>
@@ -94,8 +107,6 @@ export default function profile() {
 
         <div class="section-title"><h2>Настройки</h2></div>
         <div class="card">
-          <button class="list-row" data-act="sched" style="width:100%;background:none;border:none;font:inherit;color:inherit;cursor:pointer">
-            <span class="grow" style="text-align:left">Расписание и рекомендации</span>${icon('chevron', 18)}</button>
           <button class="list-row" data-act="edit" style="width:100%;background:none;border:none;font:inherit;color:inherit;cursor:pointer">
             <span class="grow" style="text-align:left">Данные собаки</span>${icon('chevron', 18)}</button>
           ${isStandalone()
