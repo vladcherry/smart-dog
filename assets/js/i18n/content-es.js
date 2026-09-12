@@ -622,5 +622,531 @@ export default {
     "Cuando vaya al sitio sin orden, premio gordo. Ahora el timbre se ha convertido en la señal."
    ]
   }
+ },
+ "articles": {
+  "a1": {
+   "title": "Nombre y contacto visual",
+   "subtitle": "La base sin la cual no funciona ninguna otra orden",
+   "why": "Un perro no puede cumplir una orden que no ha oído. Responder al nombre no es cortesía, es el interruptor de la atención: mientras no exista, las demás palabras son ruido de fondo. Es lo primero que se enseña a un cachorro de ocho semanas y lo último que se deja de mantener.",
+   "meta": {
+    "start": "desde las 8 semanas",
+    "dur": "2–3 semanas hasta salir a la calle; se mantiene toda la vida",
+    "need": "premios blandos y pequeños, una habitación tranquila"
+   },
+   "steps": [
+    {
+     "t": "Cargar el nombre",
+     "d": "En silencio, di el nombre una vez y da un premio enseguida, aunque el perro no haya reaccionado. 10 repeticiones con pausas de 10 segundos.",
+     "c": "2 días, 2 series al día"
+    },
+    {
+     "t": "Esperar el giro de cabeza",
+     "d": "Ahora di el nombre y espera. Gira la cabeza: marcador («sí») y premio. No repitas el nombre dos veces.",
+     "c": "8 giros de 10"
+    },
+    {
+     "t": "Añadir movimiento",
+     "d": "Llámalo cuando cruce la habitación o esté con un juguete.",
+     "c": "7 de 10"
+    },
+    {
+     "t": "Añadir distancia",
+     "d": "Desde el otro extremo de la habitación y luego desde otra habitación.",
+     "c": "7 de 10 a 5 metros"
+    },
+    {
+     "t": "Salir al patio",
+     "d": "Un sitio tranquilo, correa larga. Sube el valor del premio: queso, carne.",
+     "c": "8 de 10"
+    },
+    {
+     "t": "La calle con distracciones",
+     "d": "Gente, perros a distancia, olores. Aquí es donde el nombre se rentabiliza.",
+     "c": "4 de 5 en 2 segundos"
+    }
+   ],
+   "harder": "Sube de un eje cada vez: primero la distancia, luego las distracciones, después ambas. Nunca dos a la vez.",
+   "mistakes": [
+    "Repetir el nombre cinco veces seguidas: se devalúa y se convierte en ruido de fondo.",
+    "Llamarlo por su nombre antes de algo desagradable: el baño, cortar uñas, el final del paseo.",
+    "Usar el nombre como regañina. Después de eso el nombre significa problemas.",
+    "Entrenar en la calle antes de que funcione en casa.",
+    "Usar pienso seco donde hay palomas y otros perros: la apuesta tiene que ser más alta."
+   ],
+   "fails": "Si no se gira en casa, el premio es demasiado aburrido o hay demasiadas distracciones. Vuelve al baño con la puerta cerrada y empieza por el paso 1.",
+   "check": "Gira la cabeza en menos de 2 segundos en 4 de cada 5 ocasiones en una calle con movimiento moderado."
+  },
+  "a2": {
+   "title": "«Sienta» y «tumbado»: enseñar con señuelo y luego quitar la mano",
+   "subtitle": "La parte que todo el mundo se salta: cómo sacar la comida de la mano",
+   "why": "La mayoría de los perros se sientan mientras el dueño tiene un premio en la mano y se quedan «sordos» cuando la mano está vacía. La causa es una: se saltó la fase de retirar el señuelo. El orden correcto es señuelo, gesto, palabra y refuerzo variable.",
+   "meta": {
+    "start": "desde las 9 semanas",
+    "dur": "2 semanas por orden",
+    "need": "premios, suelo no resbaladizo"
+   },
+   "steps": [
+    {
+     "t": "Señuelo",
+     "d": "Premio en la nariz, lo llevamos hacia arriba y algo atrás: el perro se sienta solo. Se sienta: marcador y premio. Nada de empujar la grupa.",
+     "c": "8 de 10"
+    },
+    {
+     "t": "Reducir el movimiento",
+     "d": "La misma trayectoria, un tercio más corta. Y después aún más corta.",
+     "c": "8 de 10 con un movimiento de 5 cm"
+    },
+    {
+     "t": "Convertirlo en gesto",
+     "d": "Mano vacía, el premio en la otra mano o en el bolsillo. El mismo gesto, la misma respuesta.",
+     "c": "8 de 10 con la mano vacía"
+    },
+    {
+     "t": "Añadir la palabra",
+     "d": "Decimos «sienta», pausa de un segundo y luego el gesto. La palabra va ANTES del gesto; si no, sobra.",
+     "c": "2 días, 10 repeticiones"
+    },
+    {
+     "t": "Quitar el gesto",
+     "d": "Di la palabra y espera 3 segundos. Si no se sienta, ayuda con el gesto pero premia menos.",
+     "c": "8 de 10 sin gesto"
+    },
+    {
+     "t": "Refuerzo variable",
+     "d": "Premia no siempre, sino una de cada dos veces de media y al azar. Eso es lo que hace duradera la conducta.",
+     "c": "funciona premiando 1 de cada 3"
+    }
+   ],
+   "harder": "«Tumbado» se enseña igual, pero el premio baja entre las patas. Después vienen la espera, la distancia y la posición de pie. La espera crece de dos en dos segundos; la distancia, de medio paso en medio paso.",
+   "mistakes": [
+    "Empujar la grupa con la mano: el perro aprende a resistirse a la presión.",
+    "Decir la palabra a la vez que el gesto: entonces la palabra no informa de nada.",
+    "Repetir «sienta-sienta-sienta»: la orden se vuelve ruido de fondo.",
+    "Quedarse para siempre en el señuelo.",
+    "Pedir espera antes de que la posición sea fiable."
+   ],
+   "fails": "Si el perro se levanta justo después de sentarse, premias demasiado tarde. El marcador tiene que sonar en el momento en que toca el suelo, no un segundo después.",
+   "check": "Se sienta con una palabra, sin gesto, en la calle, en 4 de cada 5 ocasiones."
+  },
+  "a3": {
+   "title": "«Aquí»: la orden más importante de la vida de un perro",
+   "subtitle": "Y la única que algún día le salvará la vida",
+   "why": "La llamada es la única habilidad cuyo fallo cuesta la vida: la carretera, otro perro, un cebo en el suelo. Y es justo la que más se estropea, casi siempre igual: llamando al perro para hacerle algo desagradable.",
+   "meta": {
+    "start": "desde las 12 semanas",
+    "dur": "meses; se mantiene toda la vida",
+    "need": "correa larga de 5–10 m, premios del máximo valor"
+   },
+   "steps": [
+    {
+     "t": "Dos reglas de hierro",
+     "d": "Primera: nunca llames al perro para hacerle algo desagradable; para eso ve tú. Segunda: nunca riñas a un perro que ha venido, aunque haya tardado diez minutos. Castigarías la última acción: acudir.",
+     "c": "asumido por el dueño"
+    },
+    {
+     "t": "Llamada en casa por comida",
+     "d": "Aléjate tres pasos y llama una vez con alegría. Llega: premio gordo, tres trozos seguidos, de uno en uno.",
+     "c": "10 de 10 en casa"
+    },
+    {
+     "t": "El juego de correr entre dos",
+     "d": "Dos personas llaman al perro por turnos desde los extremos del pasillo. Cada llegada es una fiesta.",
+     "c": "acude con ganas, sin pensárselo"
+    },
+    {
+     "t": "Correa larga en el patio",
+     "d": "Déjalo explorar, espera una distracción moderada y llama. No tires de la correa: es solo un seguro.",
+     "c": "8 de 10 en el patio"
+    },
+    {
+     "t": "Llamada con distracción",
+     "d": "Gente, olores, perros a distancia. Suéltalo otra vez a explorar tras cada llamada: no debe significar el final del paseo.",
+     "c": "8 de 10"
+    },
+    {
+     "t": "Llamada de emergencia",
+     "d": "Una palabra que no se usa en el día a día («¡ahora!»). Se carga aparte: palabra y premio gordo, sin situación ninguna. Se usa como mucho una vez al día y nunca en balde.",
+     "c": "5 de 5 al instante"
+    }
+   ],
+   "harder": "Ejes de crecimiento: distancia (3 → 10 → 30 m), distracciones (patio → calle → parque → parque con perros) y sorpresa (el perro está absorto). Sube uno y baja los otros dos.",
+   "mistakes": [
+    "Llamar para terminar el paseo: el perro asocia rápido la llamada con perder la libertad.",
+    "Llamar cuando seguro que no va a venir: aprende que la orden se puede ignorar.",
+    "Perseguir al perro: para él es un juego de pillar.",
+    "Premiar de forma igual de sosa: una llamada merece más que un «sienta».",
+    "Quitar la correa larga antes de tener 8 llamadas de 10 estables."
+   ],
+   "fails": "Que la llamada se rompa a los 6–9 meses es normal y esperable, no es culpa tuya. Vuelve a la correa larga 3–4 semanas, sube el valor del refuerzo y no llames en situaciones donde seguro que no vendrá. Mira el artículo sobre la adolescencia.",
+   "check": "Llega sin dudar desde 10 metros con distracción moderada, 8 de cada 10 veces."
+  },
+  "a4": {
+   "title": "«Sitio» y la manta: cómo tener un perro tranquilo en casa",
+   "subtitle": "La habilidad más infravalorada del día a día",
+   "why": "El «sitio» resuelve las visitas, la cocina, el timbre y los nervios en una cafetería. No va de aislar al perro, va de relajación entrenada: aprende que estar tumbado tranquilo sale a cuenta.",
+   "meta": {
+    "start": "desde las 8 semanas",
+    "dur": "3–4 semanas",
+    "need": "una manta o cama que se pueda llevar"
+   },
+   "steps": [
+    {
+     "t": "La manta es algo bueno",
+     "d": "Simplemente lanza premios a la manta cuando el perro esté cerca. No pidas nada.",
+     "c": "va solo a la manta"
+    },
+    {
+     "t": "Premiar el tumbarse",
+     "d": "Cuando se tumbe en la manta: marcador y premio colocado entre sus patas.",
+     "c": "se tumba solo en 8 de cada 10 ocasiones"
+    },
+    {
+     "t": "Añadir la palabra",
+     "d": "Di «sitio» justo cuando el perro ya va hacia la manta.",
+     "c": "2 días, 10 repeticiones"
+    },
+    {
+     "t": "Duración",
+     "d": "Premia cada 5 segundos mientras esté tumbado. Luego cada 15, luego una vez por minuto.",
+     "c": "1 minuto tranquilo"
+    },
+    {
+     "t": "Distancia",
+     "d": "Mándalo desde 1 metro, luego desde 3, luego desde otra habitación.",
+     "c": "lo manda desde 3 metros"
+    },
+    {
+     "t": "Llevarlo a la vida real",
+     "d": "La misma manta en la cafetería, en casa ajena, en el veterinario. Un objeto conocido hace legible un sitio nuevo.",
+     "c": "10 minutos en una cafetería"
+    }
+   ],
+   "harder": "Añade distracciones de una en una: primero caminas por la habitación, luego haces ruido con los platos, luego suena el timbre.",
+   "mistakes": [
+    "Usar el sitio como castigo: el perro acabará evitándolo.",
+    "Premiar al perro cuando viene a ti desde la manta: estás reforzando que se marche.",
+    "Empezar con una hora de espera en lugar de cinco segundos.",
+    "Recoger la manta al terminar: debe estar siempre disponible."
+   ],
+   "fails": "Si se levanta al segundo, premias demasiado poco. Vuelve a premiar cada 3 segundos y sube el intervalo con suavidad.",
+   "check": "Va al sitio a la orden desde 3 metros y se queda allí un minuto."
+  },
+  "a5": {
+   "title": "«Déjalo» y «suelta»: la habilidad que salva vidas",
+   "subtitle": "Sobre la comida del suelo, los calcetines y los huesos de pollo",
+   "why": "Un hueso de pollo en el césped, una pastilla en el suelo, una colilla ajena: «déjalo» funciona más rápido de lo que tardas en llegar. Y «suelta» resuelve la otra mitad: qué hacer si ya lo tiene. Quitárselo no vale: así nace la protección de recursos.",
+   "meta": {
+    "start": "desde las 15 semanas",
+    "dur": "3–4 semanas",
+    "need": "dos tipos de premio, aburrido y de alto valor"
+   },
+   "steps": [
+    {
+     "t": "El principio del intercambio",
+     "d": "El perro tiene un juguete en la boca. Acerca un premio. Lo suelta: marcador, premio y devuélvele el juguete enseguida. Devolverlo es obligatorio: es lo que hace rentable el trato.",
+     "c": "suelta 8 de cada 10 veces"
+    },
+    {
+     "t": "La palabra «suelta»",
+     "d": "Añade la palabra en el momento en que ya ha empezado a soltar.",
+     "c": "suelta a la palabra"
+    },
+    {
+     "t": "«Déjalo» con el puño cerrado",
+     "d": "Premio aburrido en el puño cerrado. El perro lame y empuja: espera. Aparta la cara: marcador y premio de alto valor de la otra mano.",
+     "c": "aparta la cara enseguida"
+    },
+    {
+     "t": "Comida en el suelo bajo el pie",
+     "d": "Tapa el premio con el pie. Aparta la vista: marcador y premio desde la mano.",
+     "c": "8 de 10"
+    },
+    {
+     "t": "Comida a la vista en el suelo",
+     "d": "Ten el pie listo para taparla. Aumenta el tiempo que la comida está descubierta.",
+     "c": "5 segundos sin tocarla"
+    },
+    {
+     "t": "La calle",
+     "d": "Empieza con un premio que lances tú en una ruta conocida y pasa luego a los hallazgos reales.",
+     "c": "aparta la vista a la palabra"
+    }
+   ],
+   "harder": "El nivel final es un objeto en movimiento: una pelota lanzada, un gato que huye. Eso ya no va de comida, va de autocontrol.",
+   "mistakes": [
+    "Sacarle cosas de la boca con las manos: camino directo a la protección de recursos y a un mordisco.",
+    "Perseguir al perro con un calcetín: se convierte en el mejor juego del día.",
+    "Reñirle por lo que recoge: empezará a tragar más rápido para que no se lo quites.",
+    "Usar «déjalo» y «no» como si fueran la misma palabra: confusión.",
+    "No devolver el juguete tras el intercambio."
+   ],
+   "fails": "Si traga al vuelo, trabaja con bozal cesta introducido con antelación y, a la vez, construye «déjalo» desde cero en el patio.",
+   "check": "Aparta la vista de comida en el suelo con una sola palabra, 4 de cada 5 veces."
+  },
+  "a6": {
+   "title": "Correa floja: por qué el perro tira",
+   "subtitle": "El problema número uno del día a día, y por qué los tirones no funcionan",
+   "why": "El perro no tira por dominancia, tira porque funciona: tiró y se acercó a lo interesante. Un tirón de correa no explica nada, duele en el cuello y enseña a aguantar. Funciona otra lógica: la correa tensa detiene el avance, la floja lo continúa.",
+   "meta": {
+    "start": "desde las 17 semanas",
+    "dur": "6–10 semanas; es una habilidad lenta",
+    "need": "arnés o collar, correa de 2–3 m, no extensible"
+   },
+   "steps": [
+    {
+     "t": "El equipo",
+     "d": "Arnés de enganche frontal o collar ancho. Correa de largo fijo: la extensible enseña que tensar da libertad.",
+     "c": "elegido"
+    },
+    {
+     "t": "La posición sin movimiento",
+     "d": "En casa, parado: el perro junto a tu pierna, marcador y premio a la altura de la rodilla.",
+     "c": "se coloca solo junto a la pierna"
+    },
+    {
+     "t": "Tres pasos",
+     "d": "Da 3 pasos y premia junto a la pierna. Luego 5, luego 10.",
+     "c": "10 pasos sin tensión"
+    },
+    {
+     "t": "La regla de pararse",
+     "d": "La correa se tensa: te quedas quieto. Ni tirones ni palabras. La correa se afloja: seguimos. Los primeros paseos serán de veinte metros.",
+     "c": "el perro afloja la tensión solo"
+    },
+    {
+     "t": "Los giros",
+     "d": "Cambia de dirección cada 10 pasos: el perro aprende a seguirte con la atención.",
+     "c": "sigue el giro"
+    },
+    {
+     "t": "Calle y ciudad",
+     "d": "Primero una calle tranquila, luego una concurrida. Divide el paseo: «junto» es el modo de trabajo; olfatear libre con correa larga es descanso.",
+     "c": "50 metros sin tensión"
+    }
+   ],
+   "harder": "Entrena aparte el «nos vamos»: media vuelta de 180° a la palabra. Salva la situación al encontrarse con un estímulo.",
+   "mistakes": [
+    "La correa extensible: refuerza la tensión de forma continua.",
+    "Los tirones: dañan el cuello y no aportan información.",
+    "Exigir «junto» todo el paseo: el perro necesita olfatear o el paseo no cumple su función.",
+    "Rendirse a los dos días: es una habilidad de meses.",
+    "Avanzar con la correa tensa «solo por hoy»."
+   ],
+   "fails": "Si no se mueve del sitio, te has parado demasiado pronto y demasiadas veces. Premia cualquier movimiento a tu lado, aunque sea medio paso.",
+   "check": "50 metros por una calle conocida sin tensar la correa."
+  },
+  "a7": {
+   "title": "Aprender a hacer sus necesidades fuera en 3 semanas",
+   "subtitle": "Horario en lugar de regañinas",
+   "why": "Enseñar a hacer sus necesidades fuera no es adiestramiento, es aritmética. Un cachorro no puede aguantar más de lo que le permite su edad, y casi todos los «fallos» son fallos del horario, no del perro.",
+   "meta": {
+    "start": "desde el primer día en casa",
+    "dur": "2–3 semanas hasta que sea fiable",
+    "need": "limpiador enzimático, premios en el bolsillo del abrigo"
+   },
+   "steps": [
+    {
+     "t": "La fórmula de aguante",
+     "d": "Aguante máximo en horas ≈ edad en meses + 1. Dos meses, 3 horas; cuatro meses, 5 horas. De noche algo más.",
+     "c": "horario escrito"
+    },
+    {
+     "t": "Salidas obligatorias",
+     "d": "Justo al despertar, 15–30 minutos después de comer, tras el juego activo y cada N horas según la fórmula. No es «por si acaso», es la base.",
+     "c": "todas las salidas en el horario"
+    },
+    {
+     "t": "Premiar fuera, al instante",
+     "d": "Hace sus cosas: marcador y premio en 3 segundos, allí mismo en la calle. Premiar en casa cinco minutos después no sirve de nada.",
+     "c": "acepta el premio en la calle"
+    },
+    {
+     "t": "No terminar el paseo con el baño",
+     "d": "Si no, el cachorro alargará el momento para pasear más. Quedaos 5 minutos más después.",
+     "c": "lo hace en los primeros 5 minutos"
+    },
+    {
+     "t": "Limpiar bien",
+     "d": "Limpiador enzimático, no amoníaco: el amoníaco huele a orina e invita a volver al mismo sitio.",
+     "c": "no repite en el mismo punto"
+    },
+    {
+     "t": "Reducir la zona",
+     "d": "Las primeras semanas el cachorro está vigilado o en un espacio limitado. La libertad por la casa se gana con fiabilidad.",
+     "c": "7 días sin fallos"
+    }
+   ],
+   "harder": "Tras 7 días limpios, alarga los intervalos 30 minutos por semana y amplía el territorio disponible.",
+   "mistakes": [
+    "Restregarle el hocico: no funciona y enseña a temerte a ti, no al charco.",
+    "Reñir después: el perro no conecta el castigo con algo hecho hace 10 minutos.",
+    "Empapador y calle a la vez: dos reglas contradictorias.",
+    "Restringir el agua: es peligroso; solo se retira 1–2 horas antes de dormir.",
+    "Considerar un fallo a los 3 meses como un fracaso: es fisiología."
+   ],
+   "fails": "Si los fallos siguen a los 4–5 meses, o el perro orina a menudo y poco, toca análisis de orina. Una infección urinaria parece exactamente «no aprende».",
+   "check": "7 días seguidos sin fallos de día cumpliendo el horario."
+  },
+  "a8": {
+   "title": "El cachorro solo en casa: aprender la soledad sin aullidos",
+   "subtitle": "La diferencia entre aburrimiento y ansiedad por separación",
+   "why": "El perro es un animal social y la soledad no le resulta natural: hay que enseñarla igual que una orden. La diferencia es clave: un perro aburrido da vueltas, muerde algo y se duerme; uno ansioso aúlla, babea y araña la puerta desde el primer minuto. Lo primero se resuelve con ejercicio; lo segundo, con un protocolo y a veces con el veterinario.",
+   "meta": {
+    "start": "desde las 14 semanas; con suavidad, desde el primer día",
+    "dur": "4–8 semanas",
+    "need": "una cámara o el móvil grabando, algo para morder"
+   },
+   "steps": [
+    {
+     "t": "Diagnóstico",
+     "d": "Graba los primeros 30 minutos tras salir. Aburrimiento: pasea, muerde algo, se tumba. Ansiedad: aullidos desde el primer minuto, babas, destrozos junto a la puerta.",
+     "c": "tienes la grabación"
+    },
+    {
+     "t": "Desactivar el ritual de salida",
+     "d": "Coge las llaves y ponte los zapatos 20 veces al día sin ir a ninguna parte. La señal deja de anunciar la marcha.",
+     "c": "no reacciona a las llaves"
+    },
+    {
+     "t": "Segundos",
+     "d": "Sal por la puerta y vuelve al instante. 10 repeticiones. Sin despedidas ni recibimientos emotivos.",
+     "c": "tranquilo cuando sales"
+    },
+    {
+     "t": "Minutos",
+     "d": "5 segundos → 30 segundos → 2 minutos → 5 minutos. Vuelve ANTES de que el perro se ponga nervioso.",
+     "c": "5 minutos tranquilo"
+    },
+    {
+     "t": "Decenas de minutos",
+     "d": "15 → 30 → 60. Déjale algo para morder que le ocupe unos 20 minutos.",
+     "c": "1 hora tranquilo"
+    },
+    {
+     "t": "Horas",
+     "d": "2 → 3 → 4 horas. Antes de salir, paseo y entrenamiento: un perro cansado duerme.",
+     "c": "3 horas tranquilo"
+    }
+   ],
+   "harder": "Lo normal en un perro adulto son 4–6 horas. Más de 6 de forma habitual exige un paseo a media jornada.",
+   "mistakes": [
+    "«Que se desahogue aullando»: con ansiedad eso solo fija el estado.",
+    "Despedidas emotivas y recibimientos exagerados: agrandan el contraste.",
+    "Castigar por lo destrozado al volver.",
+    "Traer otro perro «para que no se aburra»: con ansiedad por separación no ayuda.",
+    "Saltarse pasos: si aúlla a los 30 minutos, los 15 minutos no estaban superados."
+   ],
+   "fails": "Aullidos desde el primer minuto, babas, destrozos e intentos de escapar son ansiedad por separación, un cuadro aparte. Hace falta un veterinario especializado en conducta y, a veces, apoyo con medicación mientras se trabaja el protocolo.",
+   "check": "3 horas solo y tranquilo, confirmado con la grabación de la cámara."
+  },
+  "a9": {
+   "title": "Cuánto pasear y cuánto dar de comer a un cachorro",
+   "subtitle": "Todos los cálculos de la app en palabras sencillas",
+   "why": "Los dos errores más frecuentes con un cachorro son sobrecargar las articulaciones «para que se canse» y pasarse con los premios «si son pequeñitos». Los dos solo se ven medio año después, cuando algo ya no tiene arreglo.",
+   "meta": {
+    "start": "siempre",
+    "dur": "se recalcula cada semana",
+    "need": "una báscula de baño, el envase del pienso"
+   },
+   "steps": [
+    {
+     "t": "La regla de los 5 minutos",
+     "d": "Ejercicio estructurado = 5 minutos por cada mes de edad, dos veces al día. A los 4 meses son 2 paseos de 20 minutos. Correr libre por el patio y por casa no cuenta.",
+     "c": "conoces la norma"
+    },
+    {
+     "t": "Por qué no más",
+     "d": "Las placas de crecimiento cierran entre los 10 y los 18 meses según el tamaño. Hasta entonces, carreras largas, saltos y correr junto a la bici sobrecargan las articulaciones, y eso aparece más tarde como artrosis.",
+     "c": "cargas de impacto excluidas"
+    },
+    {
+     "t": "Metabolismo basal",
+     "d": "RER = 70 × (peso en kg elevado a 0,75). Es la energía necesaria en reposo.",
+     "c": "cálculo entendido"
+    },
+    {
+     "t": "Factor de crecimiento",
+     "d": "Hasta los 4 meses × 3,0; de 4 a 7 meses × 2,5; de 7 meses al fin del crecimiento × 2,0; adulto esterilizado × 1,6. Un cachorro come el doble o el triple que un adulto del mismo peso.",
+     "c": "factor elegido"
+    },
+    {
+     "t": "De calorías a gramos",
+     "d": "Gramos = calorías ÷ calorías por 100 g × 100. La densidad viene en el envase. Medir «por vasos» no vale: los piensos difieren al doble.",
+     "c": "ración calculada"
+    },
+    {
+     "t": "Los premios también son comida",
+     "d": "Los premios de entrenamiento no deben pasar del 10 % de las calorías diarias y hay que restarlos de la ración. Es la causa principal del sobrepeso a los 8 meses.",
+     "c": "presupuesto respetado"
+    },
+    {
+     "t": "La condición manda sobre la báscula",
+     "d": "Las costillas deben notarse bajo una capa fina de grasa, con cintura visible desde arriba y vientre recogido de perfil. Si se ven las costillas, es poco; si no se palpan, es mucho.",
+     "c": "revisión cada 2 semanas"
+    }
+   ],
+   "harder": "El número de comidas baja con la edad: 4 al día hasta los 4 meses, 3 de 4 a 6 meses y 2 a partir de ahí. Cámbialo poco a poco, no de un día para otro.",
+   "mistakes": [
+    "Dar de comer «según la tabla del saco» sin mirar actividad ni condición: esas tablas son medias y casi siempre generosas.",
+    "Pasear activamente justo después de comer: riesgo de torsión gástrica, sobre todo en razas grandes.",
+    "Recuperar el ejercicio de la semana con un paseo largo el fin de semana.",
+    "Cambiar de pienso de golpe: hacen falta 7 días de transición.",
+    "No pesar: sin un peso reciente todo el cálculo es ficción."
+   ],
+   "fails": "Dos pesajes seguidos fuera del rango normal no son motivo para improvisar, sino para hablar con el veterinario.",
+   "check": "Peso dentro de ±15 % de la curva de crecimiento, costillas palpables y cintura visible."
+  },
+  "a10": {
+   "title": "La adolescencia: por qué el perro lo olvidó todo a los 7 meses",
+   "subtitle": "El artículo más necesario justo cuando dan ganas de tirar la toalla",
+   "why": "Entre los 6 y los 9 meses, un perro adiestrado deja de oírte, se va corriendo en los paseos y empieza a ladrar a los suyos. Parece que medio año de trabajo se ha esfumado. No es así: las habilidades siguen ahí, lo que ha cambiado es el cerebro. Justo a esta edad es cuando más perros acaban en protectoras, normalmente tres meses antes de que todo hubiera vuelto solo.",
+   "meta": {
+    "start": "6 meses",
+    "dur": "3–4 meses",
+    "need": "correa larga, paciencia"
+   },
+   "steps": [
+    {
+     "t": "Qué está pasando",
+     "d": "Madurez sexual, reorganización del cerebro, segundo periodo de miedos. El perro reevalúa el mundo y los límites. La conducta retrocede temporalmente varios meses.",
+     "c": "entendido y aceptado"
+    },
+    {
+     "t": "Recuperar el seguro",
+     "d": "La correa larga vuelve a todos los paseos en zonas abiertas. No es un retroceso: evita que la fuga se autorrefuerce.",
+     "c": "correa larga en los paseos"
+    },
+    {
+     "t": "Bajar los criterios",
+     "d": "Pide lo que funciona ahora, no lo que funcionaba hace un mes. Tres metros en vez de diez, el patio en vez del parque.",
+     "c": "8 de 10 en el nivel rebajado"
+    },
+    {
+     "t": "No meter nada nuevo",
+     "d": "Ninguna orden nueva en esta fase. Toda la atención a sostener la base y la llamada.",
+     "c": "cola de habilidades en pausa"
+    },
+    {
+     "t": "Dar trabajo al olfato",
+     "d": "Quince minutos de trabajo olfativo cansan más que una hora de carrera y bajan la excitación general.",
+     "c": "juegos de olfato cada día"
+    },
+    {
+     "t": "Aguantar el temporal",
+     "d": "No endurecer, no castigar, no dejar de entrenar. Hacia los 10–12 meses la conducta vuelve, y vuelve al nivel que hayas mantenido.",
+     "c": "llamada en el parque 7 de 10"
+    }
+   ],
+   "harder": "Trabaja la reactividad aparte: busca la distancia a la que el perro está tranquilo y refuerza que te mire al ver el estímulo. Solo puedes acortar la distancia cuando te mire por sí mismo.",
+   "mistakes": [
+    "Endurecer el trato: «antes obedecía, ahora hay que ser más duro» es el camino directo al miedo y la agresión.",
+    "Soltarlo porque «antes venía».",
+    "Castigar al perro que acude después de haber ignorado mucho rato.",
+    "Dejar de entrenar: eso es lo que fija el retroceso.",
+    "Esterilizar «para que se calme»: la cirugía casi nunca afecta a la conducta adolescente como la gente espera."
+   ],
+   "fails": "Si aparece agresión hacia personas o perros, y no simple desobediencia, esto no es la adolescencia: es motivo para acudir a un especialista en conducta sin demora.",
+   "check": "La llamada funciona en el parque 7 de cada 10 veces: con eso ya se puede salir de esta fase."
+  }
  }
 };
