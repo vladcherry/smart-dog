@@ -132,9 +132,7 @@ function trainCard(t) {
     </div>
     ${s.what ? `<div class="cap" style="margin-top:10px;color:var(--text)">${esc(s.what)}</div>` : ''}
     ${s.gear ? `<div class="cap" style="margin-top:6px">Понадобится: ${esc(s.gear)}</div>` : ''}
-    <div class="ev-train" style="margin-top:10px">
-      ${s.steps.map((x, i) => `${i + 1}. ${esc(x)}`).join('<br>')}
-    </div>
+    <ol class="steps">${s.steps.map(x => `<li>${esc(x)}</li>`).join('')}</ol>
     <div class="btn-row" style="margin-top:12px">
       <button class="btn btn-sec btn-sm" data-act="how" data-id="${s.id}">Разобрать подробно</button>
       <button class="btn btn-sm" data-act="rep" data-id="${s.id}" data-max="${t.reps}">+1 повтор</button>

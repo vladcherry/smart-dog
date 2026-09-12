@@ -296,3 +296,10 @@ input:focus,select:focus { outline:2px solid var(--brand); outline-offset:1px; }
 .share-ico { width:34px; height:34px; border-radius:var(--r-xs); background:var(--info-bg);
   color:var(--info-text); display:grid; place-items:center; flex:none; }
 @media (max-width:380px) { .install-bar .cap { display:none; } }
+
+/* Пошаговая инструкция в карточке навыка */
+.steps { margin:12px 0 0; padding:12px 12px 12px 32px; border-radius:var(--r-xs);
+  background:color-mix(in srgb, var(--train) 8%, transparent); }
+.steps li { font-size:14px; line-height:20px; margin-bottom:10px; }
+.steps li:last-child { margin-bottom:0; }
+.steps li::marker { font-weight:700; color:var(--train); }
