@@ -1,6 +1,7 @@
 // Предложение установить приложение на домашний экран
 import * as store from './state.js';
 import { sheet, closeSheet, toast } from './ui.js';
+import { t } from './i18n/index.js';
 
 const DAY = 86400000;
 const SHOW_AFTER_MS = 8000;      // не лезем в первую секунду знакомства
@@ -49,7 +50,7 @@ export function init() {
   window.addEventListener('appinstalled', () => {
     deferred = null;
     hideBar();
-    toast('Готово — приложение на домашнем экране');
+    toast(t('Готово — приложение на домашнем экране'));
   });
   window.addEventListener('hashchange', () => {
     if (location.hash.startsWith('#/walk')) hideBar();
@@ -76,11 +77,11 @@ function showBar() {
   bar.innerHTML = `
     <img src="assets/icons/icon-192.png" alt="" width="40" height="40" class="install-icon">
     <div class="grow">
-      <div class="install-title">На экран «Домой»</div>
-      <div class="cap">Работает без сети</div>
+      <div class="install-title">${t('На экран «Домой»')}</div>
+      <div class="cap">${t('Работает без сети')}</div>
     </div>
-    <button class="btn btn-sm" data-i="go">Установить</button>
-    <button class="install-x" data-i="close" aria-label="Закрыть">✕</button>`;
+    <button class="btn btn-sm" data-i="go">${t('Установить')}</button>
+    <button class="install-x" data-i="close" aria-label="${t('Закрыть')}">✕</button>`;
   bar.addEventListener('click', e => {
     const b = e.target.closest('[data-i]');
     if (!b) return;
@@ -99,7 +100,7 @@ function dismiss() {
 
 /** Точка входа из плашки и из настроек профиля */
 export function openInstall() {
-  if (isStandalone()) { toast('Приложение уже установлено'); return; }
+  if (isStandalone()) { toast(t('Приложение уже установлено')); return; }
   if (deferred) return systemPrompt();
   if (isIOS()) return iosSheet();
   androidSheet();
@@ -122,36 +123,31 @@ function iosSheet() {
   sheet(`
     <div class="row" style="margin-bottom:16px">
       <img src="assets/icons/icon-192.png" alt="" width="56" height="56" class="install-icon">
-      <div class="grow"><h2 style="font-size:20px;line-height:26px">Установить на iPhone</h2>
-        <div class="cap">Займёт 15 секунд</div></div>
+      <div class="grow"><h2 style="font-size:20px;line-height:26px">${t('Установить на iPhone')}</h2>
+        <div class="cap">${t('Займёт 15 секунд')}</div></div>
     </div>
     ${inApp ? `<div class="banner" style="margin-bottom:16px"><div>
-      <b>Сначала выйдите из мессенджера</b>Страница открыта во встроенном браузере
-      (Telegram, WhatsApp, Instagram). Нажмите «…» или «Поделиться» в его панели и выберите
-      «Открыть в Safari» — оттуда установка сработает.</div></div>`
+      <b>${t('Сначала выйдите из мессенджера')}</b>${t('Страница открыта во встроенном браузере (Telegram, WhatsApp, Instagram). Нажмите «…» или «Поделиться» в его панели и выберите «Открыть в Safari» — оттуда установка сработает.')}</div></div>`
       : chrome ? `<div class="banner" style="margin-bottom:16px"><div>
-      <b>Нужен Safari</b>Из этого браузера на iPhone установить нельзя — такой кнопки в нём нет.
-      Откройте ссылку в Safari и повторите.</div></div>` : ''}
+      <b>${t('Нужен Safari')}</b>${t('Из этого браузера на iPhone установить нельзя — такой кнопки в нём нет. Откройте ссылку в Safari и повторите.')}</div></div>` : ''}
     <div class="stack">
-      <div class="step"><b>1. Нажмите «Поделиться»</b>
+      <div class="step"><b>${t('1. Нажмите «Поделиться»')}</b>
         <div class="row" style="gap:8px;margin-top:6px">
           <span class="share-ico">${shareIcon()}</span>
-          <span class="cap grow">Квадрат со стрелкой вверх — в нижней панели Safari,
-            на iPad — в верхней</span>
+          <span class="cap grow">${t('Квадрат со стрелкой вверх — в нижней панели Safari, на iPad — в верхней')}</span>
         </div></div>
-      <div class="step"><b>2. Пролистайте список вниз</b>
-        <div class="cap" style="margin-top:4px">Пункт «На экран «Домой»» прячется ниже строки с приложениями</div></div>
-      <div class="step"><b>3. Нажмите «На экран «Домой»»</b>
-        <div class="cap" style="margin-top:4px">Имя уже подставлено — Smart Dog</div></div>
-      <div class="step"><b>4. «Добавить» в правом верхнем углу</b>
-        <div class="cap" style="margin-top:4px">Значок появится на домашнем экране, дальше открывайте приложение с него</div></div>
+      <div class="step"><b>${t('2. Пролистайте список вниз')}</b>
+        <div class="cap" style="margin-top:4px">${t('Пункт «На экран «Домой»» прячется ниже строки с приложениями')}</div></div>
+      <div class="step"><b>${t('3. Нажмите «На экран «Домой»»')}</b>
+        <div class="cap" style="margin-top:4px">${t('Имя уже подставлено — Smart Dog')}</div></div>
+      <div class="step"><b>${t('4. «Добавить» в правом верхнем углу')}</b>
+        <div class="cap" style="margin-top:4px">${t('Значок появится на домашнем экране, дальше открывайте приложение с него')}</div></div>
     </div>
     <div class="banner banner-info" style="margin-top:16px"><div>
-      <b>Зачем это нужно</b>Без браузерной обвязки приложение занимает весь экран,
-      работает без интернета и не теряет данные при очистке вкладок Safari.</div></div>
+      <b>${t('Зачем это нужно')}</b>${t('Без браузерной обвязки приложение занимает весь экран, работает без интернета и не теряет данные при очистке вкладок Safari.')}</div></div>
     <div class="btn-row" style="margin-top:20px">
-      <button class="btn btn-sec" data-i="later">Позже</button>
-      <button class="btn" data-i="ok">Понятно</button>
+      <button class="btn btn-sec" data-i="later">${t('Позже')}</button>
+      <button class="btn" data-i="ok">${t('Понятно')}</button>
     </div>`, el => {
     el.querySelector('[data-i="ok"]').onclick = () => closeSheet();
     el.querySelector('[data-i="later"]').onclick = () => {
@@ -163,10 +159,9 @@ function iosSheet() {
 
 function androidSheet() {
   sheet(`
-    <h2>Установить приложение</h2>
-    <p class="cap" style="margin:8px 0 16px">Откройте меню браузера (три точки) и выберите
-      «Установить приложение» или «Добавить на главный экран».</p>
-    <button class="btn" data-i="ok">Понятно</button>`,
+    <h2>${t('Установить приложение')}</h2>
+    <p class="cap" style="margin:8px 0 16px">${t('Откройте меню браузера (три точки) и выберите «Установить приложение» или «Добавить на главный экран».')}</p>
+    <button class="btn" data-i="ok">${t('Понятно')}</button>`,
     el => { el.querySelector('[data-i="ok"]').onclick = closeSheet; });
 }
 

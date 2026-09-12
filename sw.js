@@ -8,11 +8,16 @@ const SHELL = [
   'assets/js/training.js', 'assets/js/dayplan.js', 'assets/js/chart.js', 'assets/js/demo.js',
   'assets/js/install.js',
   'assets/js/version.js',
+  'assets/js/i18n/index.js', 'assets/js/i18n/content.js',
+  'assets/js/i18n/ru.js', 'assets/js/i18n/en.js', 'assets/js/i18n/es.js', 'assets/js/i18n/uk.js',
+  'assets/js/i18n/content-ru.js', 'assets/js/i18n/content-en.js',
+  'assets/js/i18n/content-es.js', 'assets/js/i18n/content-uk.js',
   'assets/js/data/breeds.js', 'assets/js/data/skills.js', 'assets/js/data/weeks.js',
   'assets/js/data/articles.js',
   'assets/js/views/onboarding.js', 'assets/js/views/today.js', 'assets/js/views/walk.js',
   'assets/js/views/plan.js', 'assets/js/views/book.js', 'assets/js/views/schedule.js',
   'assets/js/views/profile.js', 'assets/js/views/skill.js', 'assets/js/views/skills.js',
+  'assets/js/install.js',
   'assets/icons/icon.svg', 'assets/icons/icon-192.png', 'assets/icons/icon-512.png',
   'assets/icons/apple-touch-icon.png', 'assets/icons/icon-maskable-512.png'
 ];

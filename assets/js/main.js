@@ -11,15 +11,16 @@ import skillsList from './views/skills.js';
 import walk from './views/walk.js';
 import * as install from './install.js';
 import { VERSION } from './version.js';
+import { initI18n, t } from './i18n/index.js';
 
 const app = document.getElementById('app');
 let current = null;
 
-const TABS = [
-  { id:'today',   href:'#/today',   icon:'today',   label:'Сегодня' },
-  { id:'plan',    href:'#/plan',    icon:'plan',    label:'План' },
-  { id:'book',    href:'#/book',    icon:'book',    label:'Учебник' },
-  { id:'profile', href:'#/profile', icon:'profile', label:'Профиль' }
+const TABS = () => [
+  { id:'today',   href:'#/today',   icon:'today',   label:t('Сегодня') },
+  { id:'plan',    href:'#/plan',    icon:'plan',    label:t('План') },
+  { id:'book',    href:'#/book',    icon:'book',    label:t('Учебник') },
+  { id:'profile', href:'#/profile', icon:'profile', label:t('Профиль') }
 ];
 
 function route() {
@@ -40,8 +41,8 @@ function route() {
 
 function tabsHtml(active) {
   if (!active) return '';
-  return `<nav class="tabs">${TABS.map(t => `<a class="tab" href="${t.href}"
-    ${t.id === active ? 'aria-current="page"' : ''}>${icon(t.icon)}<span>${t.label}</span></a>`).join('')}</nav>`;
+  return `<nav class="tabs">${TABS().map(tab => `<a class="tab" href="${tab.href}"
+    ${tab.id === active ? 'aria-current="page"' : ''}>${icon(tab.icon)}<span>${tab.label}</span></a>`).join('')}</nav>`;
 }
 
 function render() {
@@ -64,10 +65,14 @@ function applyTheme() {
 }
 
 window.addEventListener('hashchange', render);
-install.init();
 window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', applyTheme);
 applyTheme();
-render();
+
+// Словарь нужен до первой отрисовки, иначе экран моргнёт русским
+initI18n().then(() => {
+  render();
+  install.init();
+});
 
 // Service worker: офлайн и установка на домашний экран
 if ('serviceWorker' in navigator && window.isSecureContext) {

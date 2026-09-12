@@ -52,6 +52,48 @@ export function ring(pct, size = 56) {
   </div>`;
 }
 
+/**
+ * Фото собаки: открывает системный выбор (на iPhone — «Медиатека / Снять фото»),
+ * обрезает по центру в квадрат 320×320 и отдаёт data:URL.
+ * Ужимаем специально: в localStorage место ограничено, а для аватара хватает с запасом.
+ */
+export function pickPhoto({ size = 320, quality = 0.82 } = {}) {
+  return new Promise(resolve => {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'image/*';
+    input.style.cssText = 'position:fixed;left:-9999px;opacity:0';
+    document.body.appendChild(input);
+    const done = v => { input.remove(); resolve(v); };
+    input.addEventListener('change', () => {
+      const file = input.files && input.files[0];
+      if (!file) return done(null);
+      const url = URL.createObjectURL(file);
+      const img = new Image();
+      img.onload = () => {
+        const side = Math.min(img.width, img.height);          // обрезаем по центру
+        const canvas = document.createElement('canvas');
+        canvas.width = canvas.height = size;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, (img.width - side) / 2, (img.height - side) / 2, side, side, 0, 0, size, size);
+        URL.revokeObjectURL(url);
+        try { done(canvas.toDataURL('image/jpeg', quality)); } catch { done(null); }
+      };
+      img.onerror = () => { URL.revokeObjectURL(url); done(null); };
+      img.src = url;
+    });
+    input.addEventListener('cancel', () => done(null));
+    input.click();
+  });
+}
+
+/** Аватар собаки: фото, если оно есть, иначе выбранный смайлик */
+export function avatarHtml(dog, cls = 'avatar') {
+  return dog?.photo
+    ? `<div class="${cls}"><img src="${dog.photo}" alt=""></div>`
+    : `<div class="${cls}">${dog?.emoji || '🐶'}</div>`;
+}
+
 let sheetEl = null;
 export function sheet(html, onMount) {
   closeSheet();

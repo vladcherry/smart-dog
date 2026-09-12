@@ -51,6 +51,9 @@
 }
 
 *,*::before,*::after { box-sizing:border-box; }
+/* Кнопки без класса .btn получали системное оформление браузера — серую рамку
+   и чужой шрифт. Сбрасываем в одном месте, чтобы это не повторялось. */
+button { font:inherit; color:inherit; }
 html,body { margin:0; padding:0; width:100%; max-width:100%; overflow-x:hidden;
   overscroll-behavior-x:none; }
 body {
@@ -106,7 +109,15 @@ img, svg, table { max-width:100%; }
 .btn:disabled { background:var(--stone-300); color:var(--sand-0); cursor:not-allowed; }
 .btn-sec { background:transparent; color:var(--text); border:1px solid var(--border); }
 .btn-sec:active { background:var(--surface-2); }
-.btn-ghost { background:transparent; color:var(--brand); min-height:44px; padding:0 12px; width:auto; }
+.btn-ghost { appearance:none; -webkit-appearance:none; border:none; background:transparent;
+  color:var(--brand); font-weight:600; font-size:14px; line-height:1; min-height:40px;
+  padding:0 10px; border-radius:var(--r-sm); cursor:pointer; width:auto;
+  display:inline-flex; align-items:center; gap:6px; }
+.btn-ghost:active { background:var(--surface-2); }
+.btn-ghost:disabled { color:var(--text-3); }
+/* Строки-ссылки в карточках настроек */
+.list-row { appearance:none; -webkit-appearance:none; background:none; border:none;
+  text-align:left; cursor:pointer; color:inherit; }
 .btn-sm { min-height:44px; font-size:14px; padding:0 16px; width:auto; }
 .btn-row { display:flex; gap:12px; }
 .btn-row .btn { flex:1; }
@@ -129,6 +140,8 @@ img, svg, table { max-width:100%; }
 .avatar { width:52px; height:52px; border-radius:var(--r-full); background:var(--moss-200);
   display:grid; place-items:center; font-size:26px; flex:none; overflow:hidden; }
 .avatar img { width:100%; height:100%; object-fit:cover; }
+.avatar-lg { width:72px; height:72px; font-size:34px; }
+.avatar-xl { width:120px; height:120px; font-size:56px; }
 .ring { width:56px; height:56px; flex:none; position:relative; }
 .ring svg { transform:rotate(-90deg); }
 .ring-label { position:absolute; inset:0; display:grid; place-items:center;

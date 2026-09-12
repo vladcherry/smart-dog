@@ -1,5 +1,6 @@
 // Алгоритмы расчёта: docs/04-profile-and-algorithms.md
 import { GROUPS, BREEDS, FOOD_TYPES } from './data/breeds.js';
+import { t, tp, tn } from './i18n/index.js';
 
 /* ---------- Возраст ---------- */
 export const DAY = 86400000;
@@ -13,16 +14,9 @@ export function ageWeeks(birth, now) { return ageDays(birth, now) / 7; }
 export function ageMonths(birth, now) { return ageDays(birth, now) / 30.44; }
 export function ageLabel(birth, now) {
   const d = ageDays(birth, now), m = Math.floor(d / 30.44), w = Math.floor((d - m * 30.44) / 7);
-  if (m < 1) return `${Math.floor(d / 7)} нед.`;
-  const mm = plural(m, 'месяц', 'месяца', 'месяцев');
-  return w > 0 ? `${m} ${mm} ${w} нед.` : `${m} ${mm}`;
-}
-export function plural(n, one, few, many) {
-  const a = Math.abs(n) % 100, b = a % 10;
-  if (a > 10 && a < 20) return many;
-  if (b > 1 && b < 5) return few;
-  if (b === 1) return one;
-  return many;
+  if (m < 1) return tn('неделя|недели|недель', Math.floor(d / 7));
+  const months = tn('месяц|месяца|месяцев', m);
+  return w > 0 ? `${months} ${tn('неделя|недели|недель', w)}` : months;
 }
 
 /* ---------- Кривая роста ---------- */
@@ -72,11 +66,15 @@ export function expectedWeight(adultKg, weeks, group) { return adultKg * pctOfAd
 
 export function growthStatus(actual, expected) {
   const d = (actual - expected) / expected;
-  if (d > 0.25)  return { key:'high2', label:'Сильно выше нормы', tone:'bad',  delta:d, advice:'Обсудите с ветеринарным врачом, не сокращайте рацион самостоятельно больше чем на 10 %.' };
-  if (d > 0.15)  return { key:'high',  label:'Выше нормы',        tone:'warn', delta:d, advice:'Снижаем калорийность на 10 % и проверяем кондицию тела.' };
-  if (d < -0.25) return { key:'low2',  label:'Сильно ниже нормы', tone:'bad',  delta:d, advice:'Покажите собаку ветеринарному врачу.' };
-  if (d < -0.15) return { key:'low',   label:'Ниже нормы',        tone:'warn', delta:d, advice:'Поднимаем калорийность на 10 %, проверяем корм и обработку от паразитов.' };
-  return { key:'ok', label:'В коридоре нормы', tone:'ok', delta:d, advice:'Продолжаем в том же режиме.' };
+  if (d > 0.25)  return { key:'high2', tone:'bad',  delta:d, label:t('Сильно выше нормы'),
+    advice:t('Обсудите с ветеринарным врачом, не сокращайте рацион самостоятельно больше чем на 10 %.') };
+  if (d > 0.15)  return { key:'high',  tone:'warn', delta:d, label:t('Выше нормы'),
+    advice:t('Снижаем калорийность на 10 % и проверяем кондицию тела.') };
+  if (d < -0.25) return { key:'low2',  tone:'bad',  delta:d, label:t('Сильно ниже нормы'),
+    advice:t('Покажите собаку ветеринарному врачу.') };
+  if (d < -0.15) return { key:'low',   tone:'warn', delta:d, label:t('Ниже нормы'),
+    advice:t('Поднимаем калорийность на 10 %, проверяем корм и обработку от паразитов.') };
+  return { key:'ok', tone:'ok', delta:d, label:t('В коридоре нормы'), advice:t('Продолжаем в том же режиме.') };
 }
 
 /* ---------- Питание ---------- */
@@ -195,21 +193,24 @@ export function recommendations(dog, weights, now = new Date()) {
 
   const firstMeal = minutesOf(s.meals[0]);
   if (firstMeal < minutesOf(s.walkAm)) {
-    add('meal-before-walk', 'Завтрак стоит до прогулки',
-      `Кормление в ${s.meals[0]} идёт раньше выгула в ${s.walkAm}. Голодная собака работает за еду охотнее — тренировка на прогулке пройдёт продуктивнее.`,
+    add('meal-before-walk', t('Завтрак стоит до прогулки'),
+      t('Кормление в {meal} идёт раньше выгула в {walk}. Голодная собака работает за еду охотнее — тренировка на прогулке пройдёт продуктивнее.',
+        { meal:s.meals[0], walk:s.walkAm }),
       { type:'meals', value:[timeOf(minutesOf(s.walkAm) + 30), ...s.meals.slice(1)] });
   }
   const lastMeal = minutesOf(s.meals[s.meals.length - 1]);
   const pm = minutesOf(s.walkPm);
   if (pm > lastMeal && pm - lastMeal < 60) {
-    add('walk-after-meal', 'Выгул слишком близко к кормлению',
-      `Между кормлением в ${s.meals[s.meals.length - 1]} и выгулом в ${s.walkPm} меньше часа. Для растущей собаки это риск заворота желудка — особенно у крупных пород.`,
+    add('walk-after-meal', t('Выгул слишком близко к кормлению'),
+      t('Между кормлением в {meal} и выгулом в {walk} меньше часа. Для растущей собаки это риск заворота желудка — особенно у крупных пород.',
+        { meal:s.meals[s.meals.length - 1], walk:s.walkPm }),
       { type:'walkPm', value: timeOf(lastMeal + 90) });
   }
   for (let i = 1; i < s.meals.length; i++) {
     if (minutesOf(s.meals[i]) - minutesOf(s.meals[i - 1]) < 210) {
-      add('meal-gap', 'Кормления слишком близко',
-        `Между ${s.meals[i - 1]} и ${s.meals[i]} меньше 3.5 часов — щенок не успеет проголодаться, и мотивация на еду в тренировке упадёт.`,
+      add('meal-gap', t('Кормления слишком близко'),
+        t('Между {a} и {b} меньше 3.5 часов — щенок не успеет проголодаться, и мотивация на еду в тренировке упадёт.',
+          { a:s.meals[i - 1], b:s.meals[i] }),
         { type:'meals', value: rec.meals });
       break;
     }
@@ -217,37 +218,42 @@ export function recommendations(dog, weights, now = new Date()) {
   const hold = holdHours(months);
   const night = (1440 - minutesOf(dog.sleep || '22:30') + minutesOf(dog.wake || '07:00')) / 60;
   if (night > hold * 1.5 + 1) {
-    add('night', 'Ночной интервал больше нормы удержания',
-      `В ${Math.round(months)} мес. собака удерживает около ${hold} ч днём, а ночью между ${dog.sleep || '22:30'} и ${dog.wake || '07:00'} проходит ${night.toFixed(1)} ч. Поставьте ночной выход примерно в ${timeOf(minutesOf(dog.sleep || '22:30') + Math.round(hold * 1.5) * 60)}.`, null);
+    add('night', t('Ночной интервал больше нормы удержания'),
+      t('В {months} мес. собака удерживает около {hold} ч днём, а ночью между {sleep} и {wake} проходит {night} ч. Поставьте ночной выход примерно в {at}.',
+        { months:Math.round(months), hold, sleep:dog.sleep || '22:30', wake:dog.wake || '07:00',
+          night:night.toFixed(1), at:timeOf(minutesOf(dog.sleep || '22:30') + Math.round(hold * 1.5) * 60) }), null);
   }
   const recMeals = feedingsPerDay(months);
   if (s.meals.length !== recMeals) {
-    add('meals-count', 'Число кормлений не по возрасту',
-      `Сейчас ${s.meals.length} ${plural(s.meals.length, 'кормление', 'кормления', 'кормлений')}, а в ${Math.round(months)} мес. рекомендуется ${recMeals}.`,
+    add('meals-count', t('Число кормлений не по возрасту'),
+      t('Сейчас {now}, а в {months} мес. рекомендуется {rec}.',
+        { now: tn('кормление|кормления|кормлений', s.meals.length), months:Math.round(months), rec:recMeals }),
       { type:'mealsCount', value: recMeals });
   }
   if (s.walkMin > rec.walkMin * 1.5) {
-    add('walk-long', 'Прогулка длиннее возрастной нормы',
-      `${s.walkMin} минут структурированной нагрузки для ${Math.round(months)} мес. — много для растущих суставов. Норма — около ${rec.walkMin} минут дважды в день.`,
+    add('walk-long', t('Прогулка длиннее возрастной нормы'),
+      t('{cur} минут структурированной нагрузки для {months} мес. — много для растущих суставов. Норма — около {rec} минут дважды в день.',
+        { cur:s.walkMin, months:Math.round(months), rec:rec.walkMin }),
       { type:'walkMin', value: rec.walkMin });
   } else if (s.walkMin < rec.walkMin * 0.6) {
-    add('walk-short', 'Прогулка короче нормы',
-      `${s.walkMin} минут для ${Math.round(months)} мес. мало — накопленная энергия уйдёт в порчу вещей и перевозбуждение. Рекомендуем ${rec.walkMin} минут.`,
+    add('walk-short', t('Прогулка короче нормы'),
+      t('{cur} минут для {months} мес. мало — накопленная энергия уйдёт в порчу вещей и перевозбуждение. Рекомендуем {rec} минут.',
+        { cur:s.walkMin, months:Math.round(months), rec:rec.walkMin }),
       { type:'walkMin', value: rec.walkMin });
   }
   if (Math.abs(minutesOf(s.walkPm) - minutesOf(s.walkAm)) < 300) {
-    add('walks-close', 'Обе прогулки в одной половине дня',
-      'Между выгулами меньше 5 часов. Вечерний выгул важен: он снимает дневное напряжение и помогает спокойной ночи.',
+    add('walks-close', t('Обе прогулки в одной половине дня'),
+      t('Между выгулами меньше 5 часов. Вечерний выгул важен: он снимает дневное напряжение и помогает спокойной ночи.'),
       { type:'walkPm', value: rec.walkPm });
   }
   const last = weights && weights.length ? weights[weights.length - 1] : null;
   if (!last || (now - new Date(last.date + 'T12:00:00')) / DAY > 14) {
-    add('weigh', 'Давно не взвешивали',
-      'Без свежего веса расчёт порции и нагрузки становится приблизительным. Взвешивайте раз в неделю до 6 месяцев.', null);
+    add('weigh', t('Давно не взвешивали'),
+      t('Без свежего веса расчёт порции и нагрузки становится приблизительным. Взвешивайте раз в неделю до 6 месяцев.'), null);
   }
   if (dog.neutered === 'yes' && !dog.neuterAdjusted && months >= 6) {
-    add('neuter', 'Питание после стерилизации',
-      'После стерилизации потребность в калориях падает примерно на 20 %. Приложение уже применило коэффициент 1.6 — проверьте кондицию тела через 2 недели.', null);
+    add('neuter', t('Питание после стерилизации'),
+      t('После стерилизации потребность в калориях падает примерно на 20 %. Приложение уже применило коэффициент 1.6 — проверьте кондицию тела через 2 недели.'), null);
   }
   return out;
 }
