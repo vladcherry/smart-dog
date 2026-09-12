@@ -270,3 +270,21 @@ input:focus,select:focus { outline:2px solid var(--brand); outline-offset:1px; }
 .clicker:active { transform:scale(.98); }
 .chart { width:100%; height:180px; }
 @media (prefers-reduced-motion:reduce) { *{animation-duration:.01ms !important; transition-duration:.01ms !important;} }
+
+/* Плашка установки */
+.install-bar { position:fixed; left:8px; right:8px; bottom:calc(70px + env(safe-area-inset-bottom));
+  max-width:504px; margin:0 auto; z-index:30; display:flex; align-items:center; gap:10px;
+  background:var(--surface); border:1px solid var(--divider); border-radius:var(--r-md);
+  padding:12px 34px 12px 12px; box-shadow:var(--shadow-lg);
+  animation:up 320ms cubic-bezier(.22,1,.36,1); }
+.install-title { font-weight:600; line-height:20px; }
+.install-bar .cap { line-height:16px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.install-icon { border-radius:10px; flex:none; background:var(--moss-600); }
+.install-bar .btn-sm { flex:none; padding:0 14px; }
+.install-x { position:absolute; top:6px; right:6px; width:26px; height:26px; min-height:26px;
+  border:none; background:none; color:var(--text-3); font-size:13px; cursor:pointer;
+  border-radius:var(--r-full); padding:0; }
+.install-x:active { background:var(--surface-2); }
+.share-ico { width:34px; height:34px; border-radius:var(--r-xs); background:var(--info-bg);
+  color:var(--info-text); display:grid; place-items:center; flex:none; }
+@media (max-width:380px) { .install-bar .cap { display:none; } }

@@ -7,6 +7,7 @@ import { BREEDS, GROUPS } from '../data/breeds.js';
 import { bind, esc, sheet, closeSheet, toast, icon } from '../ui.js';
 import { weightChart } from '../chart.js';
 import { weighSheet } from './today.js';
+import { openInstall, isStandalone } from '../install.js';
 
 export default function profile() {
   const s = store.get(), dog = s.dog;
@@ -97,6 +98,11 @@ export default function profile() {
             <span class="grow" style="text-align:left">Расписание и рекомендации</span>${icon('chevron', 18)}</button>
           <button class="list-row" data-act="edit" style="width:100%;background:none;border:none;font:inherit;color:inherit;cursor:pointer">
             <span class="grow" style="text-align:left">Данные собаки</span>${icon('chevron', 18)}</button>
+          ${isStandalone()
+            ? `<div class="list-row"><span class="grow">Приложение установлено</span>
+                 <span class="pill" style="background:var(--ok-bg);color:var(--ok-text)">на экране</span></div>`
+            : `<button class="list-row" data-act="install" style="width:100%;background:none;border:none;font:inherit;color:inherit;cursor:pointer">
+                 <span class="grow" style="text-align:left">Установить на экран «Домой»</span>${icon('chevron', 18)}</button>`}
           <div class="list-row"><span class="grow">Тема</span>
             <div class="seg" style="flex:none">
               ${[['auto','Авто'],['light','Светлая'],['dark','Тёмная']].map(([k, l]) =>
@@ -112,6 +118,7 @@ export default function profile() {
     mount(root) {
       bind(root, {
         weigh: () => weighSheet(),
+        install: () => openInstall(),
         skill: el => { location.hash = '#/skill/' + el.dataset.id; },
         sched: () => { location.hash = '#/schedule'; },
         bcs: el => { store.update(s => { s.dog.bcs = el.dataset.v; }); toast('Питание пересчитано'); setTimeout(() => location.reload(), 400); },

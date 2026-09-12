@@ -19,7 +19,13 @@
 <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/icon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Onest:wght@600;700&display=swap" rel="stylesheet">
+<!-- Шрифты грузим неблокирующе: пока CSS с чужого домена не ответил, браузер
+     не выполняет ни один модуль — на медленной сети приложение стояло бы до таймаута.
+     До подгрузки текст рисуется системным шрифтом из фолбэка. -->
+<link rel="stylesheet" media="print" onload="this.media='all';this.onload=null"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Onest:wght@600;700&display=swap">
+<noscript><link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Onest:wght@600;700&display=swap"></noscript>
 <link rel="stylesheet" href="assets/css/app.css">
 <link rel="icon" type="image/svg+xml" href="assets/icons/icon.svg">
 </head>

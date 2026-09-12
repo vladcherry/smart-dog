@@ -1,16 +1,17 @@
 // Service worker: офлайн-режим для прогулки без сети
-const VERSION = 'smartdog-v1';
+const VERSION = 'smartdog-v2';
 const SHELL = [
   './', 'index.html', 'manifest.json',
   'assets/css/app.css',
   'assets/js/main.js', 'assets/js/state.js', 'assets/js/ui.js', 'assets/js/algo.js',
   'assets/js/training.js', 'assets/js/dayplan.js', 'assets/js/chart.js', 'assets/js/demo.js',
+  'assets/js/install.js',
   'assets/js/data/breeds.js', 'assets/js/data/skills.js', 'assets/js/data/weeks.js',
   'assets/js/data/articles.js',
   'assets/js/views/onboarding.js', 'assets/js/views/today.js', 'assets/js/views/walk.js',
   'assets/js/views/plan.js', 'assets/js/views/book.js', 'assets/js/views/schedule.js',
   'assets/js/views/profile.js', 'assets/js/views/skill.js',
-  'assets/icons/icon-192.png', 'assets/icons/icon-512.png',
+  'assets/icons/icon.svg', 'assets/icons/icon-192.png', 'assets/icons/icon-512.png',
   'assets/icons/apple-touch-icon.png', 'assets/icons/icon-maskable-512.png'
 ];
 

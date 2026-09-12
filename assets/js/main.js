@@ -8,6 +8,7 @@ import schedule from './views/schedule.js';
 import profile from './views/profile.js';
 import skillView from './views/skill.js';
 import walk from './views/walk.js';
+import * as install from './install.js';
 
 const app = document.getElementById('app');
 let current = null;
@@ -60,6 +61,7 @@ function applyTheme() {
 }
 
 window.addEventListener('hashchange', render);
+install.init();
 window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', applyTheme);
 applyTheme();
 render();

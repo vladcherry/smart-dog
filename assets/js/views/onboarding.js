@@ -198,7 +198,7 @@ function summary(dog, kg) {
   const active = SKILLS.filter(x => store.get().skills[x.id]?.stage === 1).map(x => x.name);
   sheet(`
     <div class="pop" style="text-align:center;font-size:44px">${dog.emoji}</div>
-    <h2 style="text-align:center;margin:8px 0 20px">План для ${esc(dog.name)} готов</h2>
+    <h2 style="text-align:center;margin:8px 0 20px">${esc(dog.name)} — план готов</h2>
     <div class="stack">
       <div class="card"><div class="over">Выгул</div>
         <b>2 прогулки по ${walkMinutes(months, dog.group)} мин</b>

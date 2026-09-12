@@ -12,6 +12,7 @@ export const BREEDS = [
   { id:'beagle',     name:'Бигль',                    group:'M',  min:9,   max:16 },
   { id:'cocker',     name:'Кокер-спаниель',           group:'M',  min:11,  max:15 },
   { id:'border',     name:'Бордер-колли',             group:'M',  min:14,  max:22 },
+  { id:'spanwater',  name:'Испанская водяная собака',  group:'M',  min:14,  max:22 },
   { id:'aussie',     name:'Австралийская овчарка',    group:'M',  min:16,  max:29 },
   { id:'husky',      name:'Сибирский хаски',          group:'M',  min:16,  max:27 },
   { id:'samoyed',    name:'Самоед',                   group:'M',  min:17,  max:30 },
