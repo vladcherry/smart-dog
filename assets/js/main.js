@@ -64,6 +64,18 @@ window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', app
 applyTheme();
 render();
 
+// Service worker: офлайн и установка на домашний экран
+if ('serviceWorker' in navigator && window.isSecureContext) {
+  const hadController = !!navigator.serviceWorker.controller;
+  let reloading = false;
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (!hadController || reloading) return;   // первый запуск не перезагружаем
+    reloading = true;
+    location.reload();
+  });
+  window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(() => {}));
+}
+
 // Демо-режим: #/today?demo=1 наполняет приложение примером профиля
 if (new URLSearchParams(location.search).get('demo') === '1' && !store.get().dog) {
   import('./demo.js').then(m => m.seed());

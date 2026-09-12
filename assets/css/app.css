@@ -54,6 +54,7 @@
 html,body { margin:0; padding:0; }
 body {
   background:var(--bg); color:var(--text);
+  padding-top:env(safe-area-inset-top);   /* статус-бар iPhone в режиме приложения */
   font-family:'Inter','Onest',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
   font-size:15px; line-height:22px; -webkit-font-smoothing:antialiased;
 }
