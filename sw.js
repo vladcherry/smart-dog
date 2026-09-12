@@ -1,5 +1,5 @@
 // Service worker: офлайн-режим для прогулки без сети
-const VERSION = 'smartdog-v5';
+const VERSION = 'smartdog-v6';
 const SHELL = [
   './', 'index.html', 'manifest.json',
   'assets/css/app.css',

@@ -1,5 +1,5 @@
 import * as store from '../state.js';
-import { WEEKS, PHASES, phaseOf, weekByAge } from '../data/weeks.js';
+import { WEEKS, PHASES, phaseOf, weekByAge, planFinished } from '../data/weeks.js';
 import { ageWeeks, ageLabel } from '../algo.js';
 import { skillById } from '../training.js';
 import { bind, esc } from '../ui.js';
@@ -9,14 +9,22 @@ export default function plan() {
   const weeks = ageWeeks(dog.birth);
   const cur = weekByAge(weeks);
   const ph = phaseOf(cur.n);
+  const done = planFinished(weeks);
 
   return {
-    html: `<div class="screen-head"><div class="over">План на год</div>
-      <h1>Неделя ${cur.n} из 52</h1>
-      <div class="cap">${ageLabel(dog.birth)} · фаза «${esc(ph.title)}»</div></div>
+    html: `<div class="screen-head"><div class="over">Программа на год</div>
+      <h1>${done ? 'Программа пройдена' : `Неделя ${cur.n} из 52`}</h1>
+      <div class="cap">${ageLabel(dog.birth)} · фаза «${esc(ph.title)}»</div>
+      <div class="cap" style="margin-top:8px">Это недели программы, а не недели жизни собаки.
+        Отсчёт идёт с появления щенка дома — с возраста 8 недель — и заканчивается
+        примерно в 14 месяцев. У каждой недели своя тема и контрольная точка.</div></div>
       <div class="screen" style="padding-top:8px">
+        ${done ? `<div class="banner banner-ok" style="margin-bottom:16px"><div>
+          <b>Год программы позади</b>Новые команды больше не открываются по расписанию —
+          дальше поддержка: освоенные навыки всплывают на проверку по интервалам,
+          а новые можно брать вручную из учебника.</div></div>` : ''}
         <div class="card card-lg">
-          <div class="over">Тема недели</div>
+          <div class="over">${done ? 'Последняя неделя программы' : 'Тема недели'}</div>
           <h2 style="margin:6px 0 8px">${esc(cur.theme)}</h2>
           <div class="banner banner-ok" style="margin-top:12px"><div>
             <b>Контрольная точка</b>${esc(cur.goal)}</div></div>

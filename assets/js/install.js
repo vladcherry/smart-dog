@@ -23,6 +23,14 @@ export function isIOS() {
 function isIOSSafari() {
   return isIOS() && !/crios|fxios|edgios|opios/i.test(navigator.userAgent);
 }
+/** Встроенный браузер мессенджера: оттуда установить на экран «Домой» нельзя */
+export function isInAppBrowser() {
+  const ua = navigator.userAgent;
+  if (/FBAN|FBAV|Instagram|Line\/|MicroMessenger|Snapchat|Twitter|VKApp|OKApp/i.test(ua)) return true;
+  if (window.TelegramWebviewProxy || window.TelegramWebview) return true;
+  // В настоящем Safari navigator.standalone — булево; во встроенном WKWebView его нет
+  return isIOS() && typeof navigator.standalone !== 'boolean';
+}
 export function canInstall() { return !isStandalone() && (!!deferred || isIOS()); }
 
 function cfg() {
@@ -110,13 +118,18 @@ async function systemPrompt() {
 
 function iosSheet() {
   const chrome = !isIOSSafari();
+  const inApp = isInAppBrowser();
   sheet(`
     <div class="row" style="margin-bottom:16px">
       <img src="assets/icons/icon-192.png" alt="" width="56" height="56" class="install-icon">
       <div class="grow"><h2 style="font-size:20px;line-height:26px">Установить на iPhone</h2>
         <div class="cap">Займёт 15 секунд</div></div>
     </div>
-    ${chrome ? `<div class="banner" style="margin-bottom:16px"><div>
+    ${inApp ? `<div class="banner" style="margin-bottom:16px"><div>
+      <b>Сначала выйдите из мессенджера</b>Страница открыта во встроенном браузере
+      (Telegram, WhatsApp, Instagram). Нажмите «…» или «Поделиться» в его панели и выберите
+      «Открыть в Safari» — оттуда установка сработает.</div></div>`
+      : chrome ? `<div class="banner" style="margin-bottom:16px"><div>
       <b>Нужен Safari</b>Из этого браузера на iPhone установить нельзя — такой кнопки в нём нет.
       Откройте ссылку в Safari и повторите.</div></div>` : ''}
     <div class="stack">

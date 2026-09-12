@@ -51,7 +51,8 @@
 }
 
 *,*::before,*::after { box-sizing:border-box; }
-html,body { margin:0; padding:0; }
+html,body { margin:0; padding:0; width:100%; max-width:100%; overflow-x:hidden;
+  overscroll-behavior-x:none; }
 body {
   background:var(--bg); color:var(--text);
   padding-top:env(safe-area-inset-top);   /* статус-бар iPhone в режиме приложения */
@@ -73,7 +74,10 @@ a { color:var(--brand); }
 
 /* Каркас */
 #app { max-width:520px; margin:0 auto; min-height:100vh; background:var(--bg);
-  box-shadow:0 0 60px rgba(43,39,33,.06); }
+  box-shadow:0 0 60px rgba(43,39,33,.06); overflow-x:hidden; }
+/* Длинные слова и ссылки не должны растягивать карточку */
+.card, .ev, .step, .banner, .prose, .wk, .skill { overflow-wrap:anywhere; }
+img, svg, table { max-width:100%; }
 .screen { padding:16px 16px 96px; }
 .screen-head { padding:20px 16px 8px; }
 .screen-head .over { margin-bottom:4px; }
@@ -184,8 +188,12 @@ a { color:var(--brand); }
 label.field { display:block; margin-bottom:16px; }
 label.field > span { display:block; font-size:13px; font-weight:600; color:var(--text-2);
   margin-bottom:6px; }
-input,select,textarea { width:100%; font:inherit; color:var(--text); background:var(--surface);
-  border:1px solid var(--border); border-radius:var(--r-sm); padding:13px 14px; min-height:48px; }
+input,select,textarea { width:100%; font-family:inherit; font-weight:inherit; color:var(--text);
+  background:var(--surface); border:1px solid var(--border); border-radius:var(--r-sm);
+  padding:13px 14px; min-height:48px;
+  /* 16px обязательны: при меньшем размере Safari на iPhone автоматически приближает
+     страницу при фокусе в поле, и её потом приходится отзумливать руками */
+  font-size:16px; line-height:22px; }
 input:focus,select:focus { outline:2px solid var(--brand); outline-offset:1px; }
 .seg { display:flex; gap:8px; flex-wrap:wrap; }
 .seg button { flex:1; min-width:72px; min-height:48px; border-radius:var(--r-sm);

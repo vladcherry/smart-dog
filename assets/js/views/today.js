@@ -4,7 +4,7 @@ import { todayISO, ageLabel, ageMonths, minutesOf, predictAdultWeight, expectedW
          growthStatus, ageWeeks, recommendations, plural, round1 } from '../algo.js';
 import { activeSkills, stageInfo, MAX_POOL } from '../training.js';
 import { ARTICLES } from '../data/articles.js';
-import { weekByAge, phaseOf } from '../data/weeks.js';
+import { weekByAge, phaseOf, planFinished } from '../data/weeks.js';
 import { bind, esc, ring, icon, sheet, closeSheet, toast } from '../ui.js';
 import { weightChart } from '../chart.js';
 
@@ -36,7 +36,10 @@ export default function today() {
         ${ring(prog.pct)}
       </div>
       <div class="row" style="margin-top:14px;gap:8px;flex-wrap:wrap">
-        <span class="chip chip-brand">Неделя ${wk.n} · ${esc(ph.title)}</span>
+        <button class="chip chip-brand" data-act="plan" style="cursor:pointer">
+          ${planFinished(weeks)
+            ? 'Программа года пройдена · поддержка'
+            : `Программа: неделя ${wk.n} из 52 · ${esc(ph.title)}`}</button>
         ${streak > 0 ? `<span class="chip chip-accent">🔥 ${streak} ${plural(streak, 'день', 'дня', 'дней')} подряд</span>` : ''}
       </div>
     </div>
@@ -90,6 +93,7 @@ export default function today() {
         book: () => { location.hash = '#/book'; },
         weigh: () => weighSheet(),
         sched: () => { location.hash = '#/schedule'; },
+        plan: () => { location.hash = '#/plan'; },
         allrecs: () => { location.hash = '#/schedule'; }
       });
     }

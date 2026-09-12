@@ -76,6 +76,10 @@ export const WEEKS = [
 export function phaseOf(weekNo) {
   return PHASES.find(p => weekNo >= p.from && weekNo <= p.to) || PHASES[PHASES.length - 1];
 }
+/** Программа рассчитана с 8 недель (появление дома) до 59 недель (~14 месяцев) */
+export const PLAN_START_WEEKS = 8, PLAN_END_WEEKS = 59;
+export function planFinished(ageWeeks) { return ageWeeks > PLAN_END_WEEKS; }
+
 export function weekByAge(ageWeeks) {
   if (ageWeeks <= 8) return WEEKS[0];
   const w = WEEKS.find(x => x.age === Math.round(ageWeeks));
