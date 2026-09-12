@@ -7,6 +7,7 @@ import book from './views/book.js';
 import schedule from './views/schedule.js';
 import profile from './views/profile.js';
 import skillView from './views/skill.js';
+import skillsList from './views/skills.js';
 import walk from './views/walk.js';
 import * as install from './install.js';
 
@@ -29,6 +30,7 @@ function route() {
     case 'book':     return { view: book(arg), tab:'book' };
     case 'schedule': return { view: schedule(), tab:'profile' };
     case 'profile':  return { view: profile(), tab:'profile' };
+    case 'skills':   return { view: skillsList(), tab:'profile' };
     case 'skill':    return { view: skillView(arg), tab:null };
     case 'walk':     return { view: walk(arg || 'am'), tab:null };
     default:         return { view: today(), tab:'today' };

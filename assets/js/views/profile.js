@@ -84,7 +84,9 @@ export default function profile() {
         </div>
 
         <div class="section-title"><h2>Полка навыков</h2>
-          <span class="cap">${sum.LEARNING + sum.PRACTICE} из ${MAX_POOL} в работе</span></div>
+          <button class="btn-ghost" data-act="allskills" style="min-height:32px">Все команды</button></div>
+        <div class="cap" style="margin:-8px 0 12px">${sum.LEARNING + sum.PRACTICE} из ${MAX_POOL} в работе,
+          всего в программе ${Object.values(sum).reduce((a, b) => a + b, 0)}</div>
         <div class="stack">
           ${STAGES.slice(1).reverse().map(stg => {
             const list = SKILLS.filter(x => STAGES[s.skills[x.id]?.stage ?? 0].id === stg.id);
@@ -132,6 +134,7 @@ export default function profile() {
         install: () => openInstall(),
         skill: el => { location.hash = '#/skill/' + el.dataset.id; },
         sched: () => { location.hash = '#/schedule'; },
+        allskills: () => { location.hash = '#/skills'; },
         bcs: el => { store.update(s => { s.dog.bcs = el.dataset.v; }); toast('Питание пересчитано'); setTimeout(() => location.reload(), 400); },
         theme: el => { store.update(s => { s.settings.theme = el.dataset.v; }); location.reload(); },
         edit: () => editSheet(),

@@ -78,10 +78,10 @@ export default function walk(slot = 'am') {
           const id = el.dataset.id, max = Number(el.dataset.max);
           reps[id] = Math.min(max, (reps[id] || 0) + 1);
           const out = root.querySelector('#rep-' + id);
-          if (out) out.textContent = `${reps[id]} / ${max}`;
+          if (out) out.textContent = `${reps[id]} из ${max}`;
           if (reps[id] >= max) {
             root.querySelector('#card-' + id)?.classList.add('ev-done');
-            el.textContent = 'Готово';
+            el.textContent = 'Норма выполнена';
             el.disabled = true;
           }
           if (navigator.vibrate) navigator.vibrate(10);
@@ -126,16 +126,20 @@ function trainCard(t) {
       <div class="grow">
         <div style="font-weight:600">${esc(s.name)}
           ${t.review ? '<span class="badge">проверка</span>' : ''}</div>
-        <div class="cap">${st.label} · ${t.reps} ${plural(t.reps, 'повтор', 'повтора', 'повторов')} за прогулку</div>
+        <div class="cap">${st.label} · сделайте ${t.reps} ${plural(t.reps, 'повтор', 'повтора', 'повторов')} за прогулку
+          и отмечайте каждый кнопкой ниже</div>
       </div>
-      <b class="num" style="font-size:18px" id="rep-${s.id}">0 / ${t.reps}</b>
+      <div style="text-align:right;flex:none">
+        <b class="num" style="font-size:18px" id="rep-${s.id}">0 из ${t.reps}</b>
+        <div class="cap" style="font-size:11px;line-height:14px">сделано</div>
+      </div>
     </div>
     ${s.what ? `<div class="cap" style="margin-top:10px;color:var(--text)">${esc(s.what)}</div>` : ''}
     ${s.gear ? `<div class="cap" style="margin-top:6px">Понадобится: ${esc(s.gear)}</div>` : ''}
     <ol class="steps">${s.steps.map(x => `<li>${esc(x)}</li>`).join('')}</ol>
     <div class="btn-row" style="margin-top:12px">
       <button class="btn btn-sec btn-sm" data-act="how" data-id="${s.id}">Разобрать подробно</button>
-      <button class="btn btn-sm" data-act="rep" data-id="${s.id}" data-max="${t.reps}">+1 повтор</button>
+      <button class="btn btn-sm" data-act="rep" data-id="${s.id}" data-max="${t.reps}">Отметить повтор</button>
     </div>
   </div>`;
 }

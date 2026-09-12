@@ -15,7 +15,10 @@ export default function skillView(id) {
 
   return {
     html: `<div class="screen" style="padding-top:20px">
-      <button class="btn-ghost" data-act="back" style="margin-bottom:12px">${icon('back', 20)} Назад</button>
+      <div class="row-between" style="margin-bottom:12px">
+        <button class="btn-ghost" data-act="back">${icon('back', 20)} Назад</button>
+        <button class="btn-ghost" data-act="all">Все команды</button>
+      </div>
       <div class="over">${esc(st.label)}</div>
       <h1 style="margin-top:4px">${esc(sk.name)}</h1>
 
@@ -63,6 +66,7 @@ export default function skillView(id) {
     mount(root) {
       bind(root, {
         back: () => history.length > 1 ? history.back() : (location.hash = '#/today'),
+        all: () => { location.hash = '#/skills'; },
         article: el => { location.hash = '#/book/' + el.dataset.id; }
       });
     }

@@ -66,7 +66,10 @@ export default function today() {
       </button>
 
       <div class="section-title"><h2>Навыки в работе</h2>
-        <span class="cap">${activeSkills(s.skills).length} из ${MAX_POOL}</span></div>
+        <div class="row" style="gap:4px">
+          <span class="cap">${activeSkills(s.skills).length} из ${MAX_POOL}</span>
+          <button class="btn-ghost" data-act="allskills" style="min-height:32px">Все команды</button>
+        </div></div>
       <div class="stack">${skillsBlock(s.skills)}</div>
 
       <div class="section-title"><h2>Рост и вес</h2>
@@ -94,6 +97,7 @@ export default function today() {
         weigh: () => weighSheet(),
         sched: () => { location.hash = '#/schedule'; },
         plan: () => { location.hash = '#/plan'; },
+        allskills: () => { location.hash = '#/skills'; },
         allrecs: () => { location.hash = '#/schedule'; }
       });
     }

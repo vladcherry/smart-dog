@@ -52,6 +52,35 @@ export function unlockNext(skills, weeks) {
 }
 
 /** Навыки на поддержке, у которых подошёл интервал повторения */
+/** Ручной запуск навыка из общего списка: только если он открыт по возрасту и есть слот */
+export function canTake(skills, id, weeks) {
+  const s = skillById(id);
+  const p = skills[id];
+  if (!s || !p || p.stage !== NEW) return false;
+  if (weeks < s.minWeeks) return false;
+  if (!s.prereq.every(x => (skills[x]?.stage ?? NEW) >= PRACTICE)) return false;
+  return hasFreeSlot(skills);
+}
+
+export function takeSkill(skills, id, weeks) {
+  if (!canTake(skills, id, weeks)) return false;
+  skills[id].stage = LEARNING;
+  skills[id].since = todayISO();
+  return true;
+}
+
+/** Почему навык ещё закрыт */
+export function lockReason(skills, id, weeks) {
+  const s = skillById(id);
+  const p = skills[id];
+  if (!s || p.stage !== NEW) return null;
+  if (weeks < s.minWeeks) return { type:'age', weeks: s.minWeeks };
+  const missing = s.prereq.filter(x => (skills[x]?.stage ?? NEW) < PRACTICE);
+  if (missing.length) return { type:'prereq', ids: missing };
+  if (!hasFreeSlot(skills)) return { type:'slots' };
+  return { type:'ready' };
+}
+
 export function dueReviews(skills, today = todayISO()) {
   return SKILLS.filter(s => {
     const p = skills[s.id];
