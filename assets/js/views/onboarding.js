@@ -2,8 +2,8 @@ import { BREEDS, GROUPS, FOOD_TYPES } from '../data/breeds.js';
 import { SKILLS } from '../data/skills.js';
 import * as store from '../state.js';
 import { initSkills, unlockNext } from '../training.js';
-import { todayISO, ageWeeks, ageMonths, feedingsPerDay, walkMinutes, recommendedSchedule,
-         feedingPlan, trainingMinutes } from '../algo.js';
+import { todayISO, ageWeeks, ageMonths, ageLabel, feedingsPerDay, walkMinutes,
+         recommendedSchedule, feedingPlan, trainingMinutes } from '../algo.js';
 import { bind, esc, sheet, closeSheet } from '../ui.js';
 
 const EMOJI = ['🐶','🐕','🦮','🐩','🐕‍🦺','🐺'];
@@ -50,15 +50,21 @@ function body() {
     case 2: return head('Когда родился?', 'Возраст — главный вход всех расчётов: и нагрузки, и порции, и тренировок.') + `
       <label class="field"><span>Дата рождения</span>
         <input type="date" id="f-birth" value="${draft.birth || ''}" max="${todayISO()}"></label>
-      <p class="cap">Не знаете точно? Поставьте примерную дату — план можно пересчитать позже.</p>
+      <p class="cap">Не знаете точно? Нажмите примерный возраст — план можно пересчитать позже.</p>
       <div class="seg" style="margin-top:12px">
         ${[2,3,4,6,9].map(m => `<button data-act="approx" data-v="${m}">${m} мес.</button>`).join('')}
-      </div>` + nav('Далее', !draft.birth);
+      </div>
+      <p class="cap" id="birth-note" style="margin-top:12px">${draft.birth
+        ? 'Возраст: ' + ageLabel(draft.birth) : 'Дата пока не выбрана'}</p>` + nav('Далее', !draft.birth);
 
     case 3: return head('Порода', 'От размерной группы зависит кривая роста и предел нагрузки на суставы.') + `
       <label class="field"><span>Порода</span>
-        <select id="f-breed">${BREEDS.map(b => `<option value="${b.id}"
-          ${draft.breed === b.id ? 'selected' : ''}>${b.name}</option>`).join('')}</select></label>
+        <select id="f-breed">
+          <option value="" ${!draft.breed ? 'selected' : ''}>— не выбрана —</option>
+          ${BREEDS.map(b => `<option value="${b.id}"
+            ${draft.breed === b.id ? 'selected' : ''}>${b.name}</option>`).join('')}</select></label>
+      <p class="cap" style="margin:-8px 0 16px">Нет в списке — выберите «Другая / метис»
+        и укажите размерную группу вручную.</p>
       <label class="field"><span>Размерная группа</span></label>
       <div class="seg">${Object.entries(GROUPS).map(([k, g]) => `<button data-act="group" data-v="${k}"
         aria-pressed="${draft.group === k}">${g.label}<br><span class="cap">${g.hint}</span></button>`).join('')}</div>
@@ -127,15 +133,18 @@ function mount(root) {
     next: () => { if (collect()) { step = Math.min(TOTAL, step + 1); rerender(root); } },
     back: () => { collect(true); step = Math.max(1, step - 1); rerender(root); },
     emoji: pick(el => { draft.emoji = el.dataset.v; }),
-    group: pick(el => { draft.group = el.dataset.v; }),
+    group: pick(el => { draft.group = el.dataset.v; draft.groupManual = true; }),
     sex:   pick(el => { draft.sex = el.dataset.v; }),
     neu:   pick(el => { draft.neutered = el.dataset.v; }),
     food:  pick(el => { draft.foodType = el.dataset.v; }),
     act:   pick(el => { draft.activity = el.dataset.v; }),
-    approx: pick(el => {
+    // Перерисовка на шаге с датой недопустима: нативный выбор даты на Android шлёт
+    // события прямо во время прокрутки, и пересозданный input закрывал бы календарь
+    approx: el => {
       const d = new Date(); d.setMonth(d.getMonth() - Number(el.dataset.v));
       draft.birth = todayISO(d);
-    }),
+      setBirth(ob);
+    },
     known: el => {
       const id = el.dataset.v;
       draft.known = el.checked ? [...new Set([...draft.known, id])] : draft.known.filter(x => x !== id);
@@ -143,17 +152,21 @@ function mount(root) {
   });
   const breed = ob.querySelector('#f-breed');
   if (breed) {
-    if (!draft.breed) { draft.breed = breed.value; const b = BREEDS.find(x => x.id === breed.value); if (b?.group) draft.group = b.group; }
     breed.addEventListener('change', () => {
       collect(true);
-      draft.breed = breed.value;
+      draft.breed = breed.value || null;
       const b = BREEDS.find(x => x.id === breed.value);
-      if (b?.group) draft.group = b.group;
+      if (b?.group) { draft.group = b.group; draft.groupManual = false; }
+      // «Другая / метис» и пустой выбор: группу, унаследованную от прежней породы,
+      // сбрасываем — иначе метис молча останется с чужим размером
+      else if (!draft.groupManual) draft.group = null;
       rerender(root);
     });
   }
   const birth = ob.querySelector('#f-birth');
-  birth?.addEventListener('change', () => { draft.birth = birth.value; rerender(root); });
+  const onBirth = () => { draft.birth = birth.value; setBirth(ob); };
+  birth?.addEventListener('input', onBirth);
+  birth?.addEventListener('change', onBirth);
   const nameInput = ob.querySelector('#f-name');
   nameInput?.addEventListener('input', () => { draft.name = nameInput.value.trim(); });
   const weight = ob.querySelector('#f-weight');
@@ -162,6 +175,16 @@ function mount(root) {
     ob.querySelector('[data-act="next"]').disabled = !(Number(weight.value) > 0);
   });
   if (step === 1 && !nameFocused) { ob.querySelector('#f-name')?.focus(); nameFocused = true; }
+}
+
+/** Обновляет шаг с датой точечно, не пересоздавая input — иначе закрывается календарь */
+function setBirth(ob) {
+  const input = ob.querySelector('#f-birth');
+  if (input && input.value !== draft.birth) input.value = draft.birth || '';
+  const note = ob.querySelector('#birth-note');
+  if (note) note.textContent = draft.birth ? 'Возраст: ' + ageLabel(draft.birth) : 'Дата пока не выбрана';
+  const next = ob.querySelector('[data-act="next"]');
+  if (next) next.disabled = !draft.birth;
 }
 
 function collect(silent) {
