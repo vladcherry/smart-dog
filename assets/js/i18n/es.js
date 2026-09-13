@@ -412,6 +412,23 @@ const ui = {
   "Это недели программы, а не недели жизни собаки. Отсчёт идёт с появления щенка дома — с возраста 8 недель — и заканчивается примерно в 14 месяцев. У каждой недели своя тема и контрольная точка.": "Son semanas del programa, no semanas de vida del perro. La cuenta empieza cuando el cachorro llega a casa, a las 8 semanas de edad, y termina hacia los 14 meses. Cada semana tiene su tema y su punto de control.",
   "Язык": "Idioma",
   "RER × коэффициент роста × активность × кондиция. Лакомства с тренировок вычитаются из дневной порции.": "RER × factor de crecimiento × actividad × condición corporal. Los premios del entrenamiento se restan de la ración diaria.",
+  "Завершить": "Terminar",
+  "Минус минута": "Un minuto menos",
+  "Плюс минута": "Un minuto más",
+  "Можно выйти назад — таймер и повторы продолжат считаться.": "Puedes salir de esta pantalla: el cronómetro y las repeticiones siguen contando.",
+  "Открыть прогулку": "Abrir el paseo",
+  "Продолжить прогулку": "Continuar el paseo",
+  "Прогулка": "Paseo",
+  "Прогулка завершена": "Paseo terminado",
+  "Прогулка идёт": "Paseo en curso",
+  "Прогулка на паузе": "Paseo en pausa",
+  "Прогулка сохранена": "Paseo guardado",
+  "Профиль: {name}": "Perfil: {name}",
+  "Сохранить и оценить": "Guardar y valorar",
+  "Таймер остановлен. Если реальное время другое — поправьте кнопками ± и сохраните.": "El cronómetro se ha detenido. Si el tiempo real es otro, ajústalo con los botones ± y guarda.",
+  "Убрать повтор": "Quitar una repetición",
+  "Цель: {min} мин · {reps} за прогулку": "Objetivo: {min} min · {reps} en el paseo",
+  "{min} мин · {reps}. Проверьте время и поставьте оценки.": "{min} min · {reps}. Comprueba el tiempo y pon las valoraciones.",
 };
 
 export default { ui, ...content };

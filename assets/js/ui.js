@@ -6,9 +6,20 @@ export function esc(s = '') {
   return String(s).replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
 }
 
+// Обработчики вешаются на #app, который живёт всё время работы приложения.
+// Без снятия старых они накапливались с каждой отрисовкой, и один тап срабатывал
+// столько раз, сколько экранов было открыто: «Старт» переключался дважды и оставался
+// на месте, счётчик повторов прыгал через один.
+const bound = new WeakMap();
+
 /** Делегирование: элементы с data-act получают обработчик из карты */
 export function bind(root, map) {
-  root.addEventListener('click', e => {
+  const prev = bound.get(root);
+  if (prev) {
+    root.removeEventListener('click', prev.click);
+    root.removeEventListener('change', prev.change);
+  }
+  const onClick = e => {
     const el = e.target.closest('[data-act]');
     if (!el || !root.contains(el)) return;
     const fn = map[el.dataset.act];
@@ -16,13 +27,16 @@ export function bind(root, map) {
     // preventDefault только для ссылок: на чекбоксах он отменяет саму установку галочки
     if (el.tagName === 'A') e.preventDefault();
     fn(el, e);
-  });
-  root.addEventListener('change', e => {
+  };
+  const onChange = e => {
     const el = e.target.closest('[data-change]');
     if (!el) return;
     const fn = map[el.dataset.change];
     if (fn) fn(el, e);
-  });
+  };
+  root.addEventListener('click', onClick);
+  root.addEventListener('change', onChange);
+  bound.set(root, { click: onClick, change: onChange });
 }
 
 export const ICONS = {

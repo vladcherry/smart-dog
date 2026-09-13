@@ -412,6 +412,23 @@ const ui = {
   "Это недели программы, а не недели жизни собаки. Отсчёт идёт с появления щенка дома — с возраста 8 недель — и заканчивается примерно в 14 месяцев. У каждой недели своя тема и контрольная точка.": "These are weeks of the programme, not weeks of the dog's life. The count starts when the puppy comes home — at 8 weeks of age — and ends at around 14 months. Every week has its own theme and checkpoint.",
   "Язык": "Language",
   "RER × коэффициент роста × активность × кондиция. Лакомства с тренировок вычитаются из дневной порции.": "RER × growth factor × activity × body condition. Training treats are subtracted from the daily portion.",
+  "Завершить": "Finish",
+  "Минус минута": "One minute less",
+  "Плюс минута": "One minute more",
+  "Можно выйти назад — таймер и повторы продолжат считаться.": "You can go back — the timer and the reps keep counting.",
+  "Открыть прогулку": "Open the walk",
+  "Продолжить прогулку": "Resume the walk",
+  "Прогулка": "Walk",
+  "Прогулка завершена": "Walk finished",
+  "Прогулка идёт": "Walk in progress",
+  "Прогулка на паузе": "Walk paused",
+  "Прогулка сохранена": "Walk saved",
+  "Профиль: {name}": "Profile: {name}",
+  "Сохранить и оценить": "Save and rate",
+  "Таймер остановлен. Если реальное время другое — поправьте кнопками ± и сохраните.": "The timer has stopped. If the real time is different, adjust it with the ± buttons and save.",
+  "Убрать повтор": "Remove a rep",
+  "Цель: {min} мин · {reps} за прогулку": "Goal: {min} min · {reps} this walk",
+  "{min} мин · {reps}. Проверьте время и поставьте оценки.": "{min} min · {reps}. Check the time and rate the skills.",
 };
 
 export default { ui, ...content };

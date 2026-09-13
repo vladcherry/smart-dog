@@ -289,6 +289,34 @@ input:focus,select:focus { outline:2px solid var(--brand); outline-offset:1px; }
   color:#fff; border:none; font:inherit; font-size:20px; font-weight:700; cursor:pointer;
   font-family:'Onest',sans-serif; }
 .clicker:active { transform:scale(.98); }
+
+/* Идущая прогулка: таймер с правкой времени и счётчики повторов */
+.tmr { display:flex; align-items:center; justify-content:center; gap:14px; }
+.tmr .timer { flex:none; }
+.tmr-btn { width:44px; height:44px; flex:none; border-radius:var(--r-full);
+  border:1px solid var(--border); background:var(--surface); color:var(--text);
+  font:inherit; font-size:22px; font-weight:700; line-height:1; cursor:pointer; }
+.tmr-btn:active { background:var(--surface-2); }
+.rep-line { display:flex; align-items:center; gap:10px; margin-top:12px; }
+.rep-btn { width:40px; height:40px; flex:none; border-radius:var(--r-sm);
+  border:1px solid var(--border); background:var(--surface); color:var(--text);
+  font:inherit; font-size:20px; font-weight:700; line-height:1; cursor:pointer; }
+.rep-btn:disabled { opacity:.35; }
+.rep-count { flex:none; min-width:76px; text-align:center; line-height:16px; }
+.rep-count b { display:block; font-size:15px; }
+.rep-count .cap { font-size:11px; }
+.rep-line .btn { flex:1; }
+.walk-live { border:1px solid var(--brand); }
+.live-skill { border:1px solid var(--divider); border-radius:var(--r-md); padding:12px; }
+.live-skill .rep-line { margin-top:0; }
+.clicker-sm { min-height:64px; font-size:18px; }
+
+/* Шапка «Сегодня»: фото и имя открывают профиль */
+.hero-id { appearance:none; border:none; background:none; padding:0; margin:0;
+  font:inherit; color:inherit; cursor:pointer; text-align:left; gap:12px; }
+.hero-id:active { opacity:.7; }
+.h1-like { display:block; font-family:'Onest',sans-serif; font-size:24px; line-height:30px;
+  font-weight:700; letter-spacing:-.02em; }
 .chart { width:100%; height:180px; }
 @media (prefers-reduced-motion:reduce) { *{animation-duration:.01ms !important; transition-duration:.01ms !important;} }
 

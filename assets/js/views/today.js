@@ -6,6 +6,8 @@ import { activeSkills, MAX_POOL } from '../training.js';
 import { ARTICLES } from '../data/articles.js';
 import { weekByAge, phaseOf, planFinished } from '../data/weeks.js';
 import { bind, esc, ring, icon, sheet, closeSheet, toast, avatarHtml } from '../ui.js';
+import * as ws from '../walksession.js';
+import { liveCardHtml, paint, walkActs } from '../walkui.js';
 import { weightChart } from '../chart.js';
 import { t, tn } from '../i18n/index.js';
 import { skillName, stageInfoText, phase, articlesAll } from '../i18n/content.js';
@@ -25,16 +27,21 @@ export default function today() {
   const weeks = ageWeeks(dog.birth);
   const wk = weekByAge(weeks), ph = phase(phaseOf(wk.n).id);
   const recs = recommendations(dog, s.weights);
+  const live = ws.get();
+  const liveEv = live ? day.events.find(e => e.id === 'walk-' + live.slot) : null;
+  let timer = null;
 
   return {
     html: `
     <div class="hero">
       <div class="row">
-${avatarHtml(dog)}
-        <div class="grow">
-          <h1 style="font-size:24px;line-height:30px">${esc(dog.name)}</h1>
-          <div class="cap">${ageLabel(dog.birth)} · ${dayTitle(date)}</div>
-        </div>
+        <button class="hero-id row grow" data-act="dog" aria-label="${t('Профиль: {name}', { name:esc(dog.name) })}">
+          ${avatarHtml(dog)}
+          <span class="grow" style="text-align:left">
+            <span class="h1-like">${esc(dog.name)}</span>
+            <span class="cap" style="display:block">${ageLabel(dog.birth)} · ${dayTitle(date)}</span>
+          </span>
+        </button>
         ${ring(prog.pct)}
       </div>
       <div class="row" style="margin-top:14px;gap:8px;flex-wrap:wrap">
@@ -47,7 +54,8 @@ ${avatarHtml(dog)}
     </div>
 
     <div class="screen" style="padding-top:16px">
-      ${next ? nextCard(next, log) : `<div class="banner banner-ok"><div><b>${t('План на сегодня выполнен')}</b>
+      ${live ? liveCardHtml(liveEv, live)
+        : next ? nextCard(next, log) : `<div class="banner banner-ok"><div><b>${t('План на сегодня выполнен')}</b>
         ${t('{name} получил всё, что нужно. Завтра продолжим.', { name:esc(dog.name) })}</div></div>`}
 
       <div class="section-title"><h2>${t('Сегодня')}</h2>
@@ -90,8 +98,14 @@ ${avatarHtml(dog)}
         ${t('Расчёты — стартовая точка. Итоговое решение по здоровью всегда за ветеринарным врачом.')}</p>
     </div>`,
     mount(root) {
+      if (live) { timer = setInterval(() => paint(root, liveEv), 500); paint(root, liveEv); }
       bind(root, {
-        toggle: el => { store.toggleDone(date, el.dataset.id); location.reload(); },
+        ...(live ? walkActs(root, liveEv, live.slot) : {}),
+        dog: () => { location.hash = '#/profile'; },
+        toggle: el => {
+          if (!el.dataset.id) { ws.toggle(); paint(root, liveEv); return; }   // пауза в карточке прогулки
+          store.toggleDone(date, el.dataset.id); location.reload();
+        },
         walk: el => { location.hash = '#/walk/' + el.dataset.slot; },
         skill: el => { location.hash = '#/skill/' + el.dataset.id; },
         article: el => { location.hash = '#/book/' + el.dataset.id; },
@@ -102,7 +116,8 @@ ${avatarHtml(dog)}
         allskills: () => { location.hash = '#/skills'; },
         allrecs: () => { location.hash = '#/schedule'; }
       });
-    }
+    },
+    unmount() { clearInterval(timer); timer = null; }
   };
 }
 

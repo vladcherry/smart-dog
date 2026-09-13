@@ -1,4 +1,4 @@
 // Единственный источник правды о версии.
 // Отсюда её берут: экран профиля, имя кэша service worker и адрес его регистрации.
-export const VERSION = '1.2.0';
-export const BUILD = '2026-09-12';
+export const VERSION = '1.3.0';
+export const BUILD = '2026-09-13';

@@ -7,6 +7,7 @@ const DEFAULT = {
   skills: {},         // прогресс навыков
   log: {},            // { '2026-09-12': { done:{}, skipped:{}, treatsKcal:0 } }
   walks: [],          // завершённые прогулки
+  activeWalk: null,   // прогулка, которая идёт прямо сейчас
   settings: { theme: 'auto' },
   bcsAskedAt: null
 };

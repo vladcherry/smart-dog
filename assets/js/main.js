@@ -12,6 +12,7 @@ import walk from './views/walk.js';
 import * as install from './install.js';
 import { VERSION } from './version.js';
 import { initI18n, t } from './i18n/index.js';
+import { setRenderer } from './render.js';
 
 const app = document.getElementById('app');
 let current = null;
@@ -64,6 +65,7 @@ function applyTheme() {
   document.documentElement.dataset.theme = dark ? 'dark' : 'light';
 }
 
+setRenderer(render);
 window.addEventListener('hashchange', render);
 window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', applyTheme);
 applyTheme();
