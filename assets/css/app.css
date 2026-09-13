@@ -302,7 +302,9 @@ input:focus,select:focus { outline:2px solid var(--brand); outline-offset:1px; }
   border:1px solid var(--border); background:var(--surface); color:var(--text);
   font:inherit; font-size:20px; font-weight:700; line-height:1; cursor:pointer; }
 .rep-btn:disabled { opacity:.35; }
-.rep-count { flex:none; min-width:76px; text-align:center; line-height:16px; }
+.rep-btn-main { background:var(--brand); border-color:var(--brand); color:#fff; font-size:24px; }
+.rep-btn-main:disabled { background:var(--surface-2); border-color:var(--border); color:var(--text-3); opacity:1; }
+.rep-count { min-width:76px; text-align:center; line-height:16px; }
 .rep-count b { display:block; font-size:15px; }
 .rep-count .cap { font-size:11px; }
 .rep-line .btn { flex:1; }

@@ -46,12 +46,12 @@ export function repLineHtml(item, w) {
   return `<div class="rep-line" id="repline-${id}">
     <button class="rep-btn" data-act="repminus" data-id="${id}"
       aria-label="${t('Убрать повтор')}" ${done ? '' : 'disabled'}>−</button>
-    <div class="rep-count">
+    <div class="rep-count grow">
       <b class="num" data-rep="${id}">${t('{done} из {total}', { done, total:max })}</b>
-      <span class="cap">${t('сделано')}</span>
+      <span class="cap" data-repcap="${id}">${full ? t('Норма выполнена') : t('сделано')}</span>
     </div>
-    <button class="btn btn-sm grow" data-act="rep" data-id="${id}" data-max="${max}"
-      data-repadd="${id}" ${full ? 'disabled' : ''}>${full ? t('Норма выполнена') : t('Отметить повтор')}</button>
+    <button class="rep-btn rep-btn-main" data-act="rep" data-id="${id}" data-max="${max}"
+      data-repadd="${id}" aria-label="${t('Отметить повтор')}" ${full ? 'disabled' : ''}>+</button>
   </div>`;
 }
 
@@ -83,7 +83,7 @@ export function liveCardHtml(ev, w) {
       ${fin
         ? `<button class="btn btn-sec" data-act="resume">${t('Продолжить прогулку')}</button>
            <button class="btn" data-act="save">${t('Сохранить и оценить')}</button>`
-        : `<button class="btn btn-sec" data-act="open">${t('Открыть прогулку')}</button>
+        : `<button class="btn btn-sec" data-act="open">${t('Открыть')}</button>
            <button class="btn" data-act="finish">${t('Завершить')}</button>`}
     </div>
   </div>`;
@@ -114,10 +114,9 @@ export function paintReps(root, ev) {
     const id = item.skill.id, max = item.reps, done = w?.reps?.[id] || 0;
     root.querySelectorAll(`[data-rep="${id}"]`).forEach(el =>
       el.textContent = t('{done} из {total}', { done, total:max }));
-    root.querySelectorAll(`[data-repadd="${id}"]`).forEach(el => {
-      el.disabled = done >= max;
-      el.textContent = done >= max ? t('Норма выполнена') : t('Отметить повтор');
-    });
+    root.querySelectorAll(`[data-repadd="${id}"]`).forEach(el => el.disabled = done >= max);
+    root.querySelectorAll(`[data-repcap="${id}"]`).forEach(el =>
+      el.textContent = done >= max ? t('Норма выполнена') : t('сделано'));
     root.querySelectorAll(`[data-act="repminus"][data-id="${id}"]`).forEach(el => el.disabled = !done);
     root.querySelectorAll('#card-' + id).forEach(el => el.classList.toggle('ev-done', done >= max));
   }

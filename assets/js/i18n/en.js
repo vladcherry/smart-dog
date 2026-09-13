@@ -429,6 +429,8 @@ const ui = {
   "Убрать повтор": "Remove a rep",
   "Цель: {min} мин · {reps} за прогулку": "Goal: {min} min · {reps} this walk",
   "{min} мин · {reps}. Проверьте время и поставьте оценки.": "{min} min · {reps}. Check the time and rate the skills.",
+  "Открыть": "Open",
+  "Начать": "Start",
 };
 
 export default { ui, ...content };

@@ -429,6 +429,8 @@ const ui = {
   "Убрать повтор": "Quitar una repetición",
   "Цель: {min} мин · {reps} за прогулку": "Objetivo: {min} min · {reps} en el paseo",
   "{min} мин · {reps}. Проверьте время и поставьте оценки.": "{min} min · {reps}. Comprueba el tiempo y pon las valoraciones.",
+  "Открыть": "Abrir",
+  "Начать": "Empezar",
 };
 
 export default { ui, ...content };

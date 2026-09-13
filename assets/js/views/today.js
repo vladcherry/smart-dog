@@ -155,7 +155,7 @@ function evRow(e, log, last, nowMin) {
           ${e.training?.length ? `<div class="ev-train">🎯 ${e.training.map(x =>
             `${esc(skillName(x.skill.id))} ×${x.reps}${x.review ? ' ' + t('(проверка)') : ''}`).join(' · ')}
             ${!done ? `<div style="margin-top:8px"><button class="chip chip-train" data-act="walk"
-              data-slot="${e.slot}">${t('Начать прогулку с тренировкой')}</button></div>` : ''}</div>` : ''}
+              data-slot="${e.slot}">${t('Начать')}</button></div>` : ''}</div>` : ''}
         </div>
         <button class="ev-check" data-act="toggle" data-id="${e.id}" aria-pressed="${done}"
           aria-label="${t('Отметить: {title}', { title:esc(e.title) })}">✓</button>
