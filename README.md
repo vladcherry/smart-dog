@@ -1,131 +1,143 @@
-# Smart Dog — приложение для выращивания и обучения щенка
+# Smart Dog — an app for raising and training a puppy
 
-Продуктовая документация первого этапа: концепция, анализ рынка, фичи, алгоритмы расчётов,
-годовой план тренировок, контент и дизайн-система.
+Product documentation for stage one: concept, market analysis, features, calculation
+algorithms, the year-long training plan, content and the design system.
 
-**Живое приложение:** https://vladcherry.github.io/smart-dog/
-**Демо с заполненным профилем:** https://vladcherry.github.io/smart-dog/?demo=1
+**Live app:** https://vladcherry.github.io/smart-dog/
+**Demo with a filled-in profile:** https://vladcherry.github.io/smart-dog/?demo=1
 
-> Работающий прототип: чистый HTML + CSS + ES-модули, без сборки и без сервера.
-> Все данные хранятся в localStorage браузера.
+> A working prototype: plain HTML + CSS + ES modules, no build step and no server.
+> All data lives in the browser's localStorage.
 >
-> Публикуется GitHub Pages напрямую из ветки `main`, папка `/(root)`.
-> Сборки нет: что лежит в репозитории, то и раздаётся. Файл `.nojekyll` отключает
-> обработку Jekyll, чтобы статика отдавалась как есть.
+> Published by GitHub Pages straight from the `main` branch, folder `/(root)`.
+> There is no build: whatever sits in the repository is what gets served. The
+> `.nojekyll` file turns Jekyll processing off so the static files are served as they are.
 
-## Суть продукта
+## Screenshots
 
-Владелец заполняет профиль щенка (кличка, дата рождения, порода/размерная группа, пол,
-стерилизация, текущий вес, калорийность корма, уровень активности, уже освоенные команды) —
-и **сразу же**, без ручной настройки, получает три связанных плана:
+| Today | The walk | The year programme |
+|---|---|---|
+| <img src="docs/screenshots/today.png" width="240" alt="Today — the day's feed: walks, meals and the training built into them"> | <img src="docs/screenshots/walk.png" width="240" alt="The walk — timer and step-by-step instructions for the skills of this walk"> | <img src="docs/screenshots/plan.png" width="240" alt="The year programme — 52 weeks in five phases, with the current week on top"> |
 
-1. **План выгула** — сколько раз, во сколько и сколько минут гулять именно сейчас.
-2. **План питания** — сколько раз в день, во сколько и сколько грамм давать.
-3. **План тренировок** — какие команды учить, сколько повторов и в какой прогулке.
+| Skills | Handbook | Profile |
+|---|---|---|
+| <img src="docs/screenshots/skills.png" width="240" alt="Skills — what is being learned now, what is being practised and what is queued"> | <img src="docs/screenshots/handbook.png" width="240" alt="Handbook — articles on training and everyday life with a puppy"> | <img src="docs/screenshots/profile.png" width="240" alt="Profile — weight against the growth curve, forecast and body condition"> |
 
-Эти планы пересчитываются каждую неделю по мере роста собаки и по факту её результатов.
+## What the product is
 
-## Ключевая механика
+The owner fills in the puppy's profile (name, date of birth, breed / size group, sex,
+neutering, current weight, food calories, activity level, commands already mastered) —
+and **immediately**, with no manual setup, gets three connected plans:
 
-- **Каждый выгул = выгул + тренировка.** Тренировочный блок вшит в прогулку, отдельно ничего планировать не нужно.
-- **Оценка после выгула (1–5).** В конце прогулки приложение спрашивает оценку по каждому отработанному навыку.
-- **Правило пяти пятёрок.** Пять оценок «отлично» подряд по навыку → навык переходит на следующую стадию,
-  количество повторов и частота снижаются, освободившийся слот занимает новая команда из очереди годового плана.
+1. **The walking plan** — how many times, at what hours and for how many minutes to walk right now.
+2. **The feeding plan** — how many meals a day, at what times and how many grams.
+3. **The training plan** — which commands to teach, how many repetitions and on which walk.
 
-## Навигация по документам
+These plans are recalculated every week as the dog grows and according to its actual results.
 
-| Документ | О чём |
+## The core mechanic
+
+- **Every walk = a walk plus a training session.** The training block is built into the walk; nothing has to be planned separately.
+- **A rating after the walk (1–5).** At the end of the walk the app asks for a rating of every skill that was worked on.
+- **The five-excellents rule.** Five "excellent" ratings in a row for a skill → the skill moves to the next stage,
+  the number of repetitions and the frequency drop, and the freed slot is taken by a new command from the year plan's queue.
+
+## The documents
+
+The documents under `docs/` are written in Russian.
+
+| Document | About |
 |---|---|
-| [docs/01-market-analysis.md](docs/01-market-analysis.md) | Анализ лучших приложений: что они делают хорошо и где дыры |
-| [docs/02-features.md](docs/02-features.md) | Список фич с приоритетами (MVP / v1.1 / v2) |
-| [docs/03-concept-and-screens.md](docs/03-concept-and-screens.md) | Концепция, карта экранов, сценарий дня, онбординг |
-| [docs/04-profile-and-algorithms.md](docs/04-profile-and-algorithms.md) | Профиль и все формулы: вес, рост, калории, граммы, минуты выгула, прогрессия тренировок |
-| [docs/05-training-year-plan.md](docs/05-training-year-plan.md) | План тренировок на 52 недели: 5 фаз, понедельная сетка, контрольные точки |
-| [docs/06-schedule-and-recommendations.md](docs/06-schedule-and-recommendations.md) | Расписание выгула/кормления и раздел «Рекомендации» |
-| [docs/07-articles.md](docs/07-articles.md) | Учебник: 10 стартовых статей — структура и содержание |
-| [docs/08-design-system.md](docs/08-design-system.md) | **Стили и гамма**: цвет, типографика, сетка, компоненты, motion, тёмная тема |
-| [docs/09-roadmap.md](docs/09-roadmap.md) | Порядок реализации и открытые вопросы |
+| [docs/01-market-analysis.md](docs/01-market-analysis.md) | Analysis of the best apps in the category: what they do well and where the gaps are |
+| [docs/02-features.md](docs/02-features.md) | The feature list with priorities (MVP / v1.1 / v2) |
+| [docs/03-concept-and-screens.md](docs/03-concept-and-screens.md) | Concept, screen map, the scenario of a day, onboarding |
+| [docs/04-profile-and-algorithms.md](docs/04-profile-and-algorithms.md) | The profile and every formula: weight, growth, calories, grams, walking minutes, training progression |
+| [docs/05-training-year-plan.md](docs/05-training-year-plan.md) | The 52-week training plan: 5 phases, the week-by-week grid, checkpoints |
+| [docs/06-schedule-and-recommendations.md](docs/06-schedule-and-recommendations.md) | The walking and feeding schedule and the "Recommendations" section |
+| [docs/07-articles.md](docs/07-articles.md) | The handbook: 10 starting articles — structure and content |
+| [docs/08-design-system.md](docs/08-design-system.md) | **Styles and palette**: colour, typography, grid, components, motion, dark theme |
+| [docs/09-roadmap.md](docs/09-roadmap.md) | The order of implementation and the open questions |
 
-## Установка на телефон (PWA)
+## Installing on a phone (PWA)
 
-Приложение ставится на домашний экран и работает офлайн — сеть нужна только для первой загрузки.
+The app installs to the home screen and works offline — the network is only needed for the first load.
 
-**iPhone (только Safari, из Chrome на iOS установить нельзя):**
-1. Открыть https://vladcherry.github.io/smart-dog/ в Safari.
-2. Кнопка «Поделиться» (квадрат со стрелкой вверх) в нижней панели.
-3. Пролистать список вниз → **«На экран Домой»**.
-4. Проверить имя (Smart Dog) → **«Добавить»**.
+**iPhone (Safari only; installing from Chrome on iOS is not possible):**
+1. Open https://vladcherry.github.io/smart-dog/ in Safari.
+2. The "Share" button (the square with an arrow pointing up) in the bottom bar.
+3. Scroll the list down → **"Add to Home Screen"**.
+4. Check the name (Smart Dog) → **"Add"**.
 
-Иконка появится на домашнем экране, приложение откроется без адресной строки и панелей Safari.
+The icon appears on the home screen and the app opens without the address bar and Safari's chrome.
 
-**Android (Chrome):** меню «⋮» → «Установить приложение» или «Добавить на главный экран».
+**Android (Chrome):** the "⋮" menu → "Install app" or "Add to Home screen".
 
-### Что даёт установка
+### What installing gives you
 
-- Свой значок и запуск в отдельном окне, без браузерной обвязки.
-- Работа без сети: оболочка, все скрипты и статьи закэшированы service worker'ом,
-  данные и так лежат в localStorage — прогулку можно вести в лесу без связи.
-- Быстрые действия по долгому нажатию на иконку (Android): начать выгул, план, учебник.
+- Its own icon and a launch in a separate window, with no browser furniture around it.
+- Working with no network: the shell, all scripts and articles are cached by the service worker,
+  and the data sits in localStorage anyway — a walk can be run in the woods with no signal.
+- Quick actions on a long press of the icon (Android): start a walk, the plan, the handbook.
 
-Обновления приезжают сами: при запуске с сетью service worker подтягивает свежую версию.
+Updates arrive by themselves: on a launch with a network the service worker pulls the fresh version.
 
-## Языки
+## Languages
 
-Интерфейс и весь контент есть на русском, украинском, английском и испанском.
-Язык определяется по настройкам браузера, выбранный вручную сохраняется в localStorage
-и переживает перезагрузку. Незнакомый язык даёт английский.
+The interface and all of the content exist in Russian, Ukrainian, English and Spanish.
+The language is detected from the browser settings; a manual choice is saved in localStorage
+and survives a reload. An unknown language falls back to English.
 
-- `assets/js/i18n/index.js` — движок: определение языка, `t()`, множественные формы
-  через `Intl.PluralRules`, даты через `Intl.DateTimeFormat`
-- `assets/js/i18n/<язык>.js` — словарь интерфейса, ключ перевода — исходная русская строка
-- `assets/js/i18n/content-<язык>.js` — контент: навыки, недели, фазы, статьи, породы
-- `assets/js/i18n/content.js` — доступ к контенту; чего нет в переводе, берётся из русского
+- `assets/js/i18n/index.js` — the engine: language detection, `t()`, plural forms
+  via `Intl.PluralRules`, dates via `Intl.DateTimeFormat`
+- `assets/js/i18n/<language>.js` — the interface dictionary; the translation key is the original Russian string
+- `assets/js/i18n/content-<language>.js` — the content: skills, weeks, phases, articles, breeds
+- `assets/js/i18n/content.js` — access to the content; anything missing from a translation is taken from the Russian
 
-Чтобы добавить язык: заведите `<код>.js` и `content-<код>.js`, добавьте код в `LANGS`
-в `i18n/index.js` и в список файлов офлайн-кэша в `sw.js`.
+To add a language: create `<code>.js` and `content-<code>.js`, add the code to `LANGS`
+in `i18n/index.js` and to the list of files in the offline cache in `sw.js`.
 
-## Версии
+## Versions
 
-Текущая версия задаётся в `assets/js/version.js` — это единственное место, где её
-нужно менять. Оттуда её берут экран профиля, имя офлайн-кэша и адрес регистрации
-service worker (`sw.js?v=1.0.0`), поэтому подъём версии сам ставит новый воркер
-и чистит старый кэш. История — в [CHANGELOG.md](CHANGELOG.md).
+The current version is set in `assets/js/version.js` — that is the only place where it
+has to be changed. From there it is picked up by the profile screen, the name of the offline
+cache and the service worker registration address (`sw.js?v=1.0.0`), so raising the version
+by itself installs a new worker and clears the old cache. The history is in [CHANGELOG.md](CHANGELOG.md).
 
-При выпуске версии:
+When releasing a version:
 
 ```bash
-# 1. поднять номер в assets/js/version.js и дату сборки
-# 2. записать изменения в CHANGELOG.md
+# 1. raise the number in assets/js/version.js and the build date
+# 2. write the changes into CHANGELOG.md
 git commit -am "release: 1.0.1"
 git tag -a v1.0.1 -m "1.0.1"
 git push origin main --tags
 ```
 
-## Как запустить локально
+## Running locally
 
-Сборка не нужна — нужен любой статический сервер (модули не грузятся с `file://`):
+No build is needed — any static server will do (modules do not load from `file://`):
 
 ```bash
 python3 -m http.server 8000
-# затем откройте http://localhost:8000/
+# then open http://localhost:8000/
 ```
 
-## Структура кода
+## Code structure
 
-| Файл | Назначение |
+| File | Purpose |
 |---|---|
-| `index.html` | Единственная страница, hash-роутинг |
-| `assets/css/app.css` | Дизайн-система в CSS-переменных: гамма, типографика, компоненты, тёмная тема |
-| `assets/js/algo.js` | Все расчёты: кривая роста, прогноз веса, RER/DER, граммы, минуты выгула, расписание, рекомендации |
-| `assets/js/training.js` | Стадии навыков, правило пяти пятёрок, откат, разблокировка новых команд |
-| `assets/js/dayplan.js` | Сборка ленты дня из расписания, питания и тренировок |
-| `assets/js/state.js` | Хранилище в localStorage |
-| `assets/js/data/` | Породы, 24 навыка, 52 недели плана, 10 статей |
-| `assets/js/views/` | Экраны: онбординг, сегодня, прогулка, план, учебник, расписание, профиль, навык |
+| `index.html` | The single page, hash routing |
+| `assets/css/app.css` | The design system in CSS variables: palette, typography, components, dark theme |
+| `assets/js/algo.js` | Every calculation: the growth curve, the weight forecast, RER/DER, grams, walking minutes, the schedule, the recommendations |
+| `assets/js/training.js` | Skill stages, the five-excellents rule, the rollback, unlocking new commands |
+| `assets/js/dayplan.js` | Assembling the day's feed out of the schedule, the feeding and the training |
+| `assets/js/state.js` | The store in localStorage |
+| `assets/js/data/` | Breeds, 24 skills, the 52 weeks of the plan, 10 articles |
+| `assets/js/views/` | The screens: onboarding, today, walk, plan, handbook, schedule, profile, skill |
 
-## Принципы
+## Principles
 
-1. **Только положительное подкрепление.** Никаких аверсивных методов, рывков поводком, «альфа-доминирования».
-2. **Возраст решает всё.** Нагрузка, длительность сессий и сложность привязаны к возрасту и размерной группе.
-3. **Ноль вины.** Пропущенная тренировка — не «провал», а повод показать, как догнать.
-4. **Не заменяем ветеринара.** Все расчёты — стартовая точка, которую корректируют по кондиции тела и словам врача.
+1. **Positive reinforcement only.** No aversive methods, no leash corrections, no "alpha dominance".
+2. **Age decides everything.** The load, the length of a session and the difficulty are tied to age and size group.
+3. **Zero guilt.** A missed session is not a "failure" but an occasion to show how to catch up.
+4. **We do not replace a vet.** Every calculation is a starting point, to be corrected against body condition and what the doctor says.
