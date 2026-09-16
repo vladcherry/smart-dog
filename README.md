@@ -3,7 +3,7 @@
 Product documentation for stage one: concept, market analysis, features, calculation
 algorithms, the year-long training plan, content and the design system.
 
-**Live app:** https://vladcherry.github.io/smart-dog/
+**Live app:** https://vladcherry.github.io/smart-dog/  
 **Demo with a filled-in profile:** https://vladcherry.github.io/smart-dog/?demo=1
 
 > A working prototype: plain HTML + CSS + ES modules, no build step and no server.
